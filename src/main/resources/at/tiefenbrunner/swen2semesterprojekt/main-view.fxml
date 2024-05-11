@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import at.tiefenbrunner.swen2semesterprojekt.util.ImageViewPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.MainView">
+    <top>
+        <HBox>
+            <TextField fx:id="searchField" onAction="#onSearch" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="searchButton" onAction="#onSearch" text="%search-button-text"/>
+        </HBox>
+    </top>
+
+    <left>
+        <ListView fx:id="tourList"/>
+    </left>
+
+    <center>
+        <TabPane>
+            <Tab text="ListView">
+                <GridPane style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                    <children>
+                        <ImageViewPane style="-fx-border-color:red; -fx-border-width: 1; -fx-border-style: solid;">
+                            <imageView>
+                                <ImageView pickOnBounds="true"
+                                           preserveRatio="true">
+                                    <Image url="@map-placeholder.jpg"
+                                           backgroundLoading="true"/>
+                                </ImageView>
+                            </imageView>
+                        </ImageViewPane>
+                        <VBox style=" -fx-border-color:blue; -fx-border-width: 1; -fx-border-style: solid;"
+                              GridPane.columnIndex="0" GridPane.rowIndex="1">
+                            <Label>Vorname</Label>
+                            <TextField/>
+                            <Label>Nachname</Label>
+                            <TextField/>
+                        </VBox>
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="100.0"/>
+                    </columnConstraints>
+                </GridPane>
+            </Tab>
+            <Tab text="TableView">
+                <TableView fx:id="table">
+                    <columns>
+                        <TableColumn text="Name">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="name"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Age">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="age"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </Tab>
+        </TabPane>
+    </center>
+
+    <right>
+    </right>
+
+    <bottom>
+    </bottom>
+</BorderPane>
