@@ -58,6 +58,7 @@ public class TourDetailsView implements Initializable {
         type.valueProperty().bindBidirectional(viewModel.getTourModel().tourTypeProperty());
         distance.textProperty().bind(viewModel.getTourModel().distanceMProperty().asString());
         time.textProperty().bind(viewModel.getTourModel().estimatedTimeMinProperty().asString());
+        this.saveBtn.disableProperty().bind(viewModel.saveDisabledProperty());
     }
 
     @FXML

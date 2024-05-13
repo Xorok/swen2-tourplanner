@@ -6,6 +6,9 @@ import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation.TourModel;
 import com.sun.jdi.InvalidTypeException;
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
@@ -19,13 +22,32 @@ public class TourDetailsViewModel {
     private Tour tour;
     private final TourModel tourModel;
 
+    private final BooleanProperty saveDisabled = new SimpleBooleanProperty(true);
+
     public TourDetailsViewModel(Publisher publisher, TourService model) {
         this.publisher = publisher;
         this.model = model;
         this.tour = new Tour();
         this.tourModel = new TourModel();
 
+        setupBindings();
         setupEvents();
+    }
+
+    private void setupBindings() {
+        // if any tour form fields are empty, disable save button
+        InvalidationListener listener = observable -> saveDisabled.set(formFieldIsEmpty());
+        this.tourModel.nameProperty().addListener(listener);
+        this.tourModel.descriptionProperty().addListener(listener);
+        this.tourModel.fromProperty().addListener(listener);
+        this.tourModel.toProperty().addListener(listener);
+    }
+
+    private boolean formFieldIsEmpty() {
+        return tourModel.getName() == null || tourModel.getName().isEmpty() ||
+                tourModel.getDescription() == null || tourModel.getDescription().isEmpty() ||
+                tourModel.getFrom() == null || tourModel.getFrom().isEmpty() ||
+                tourModel.getTo() == null || tourModel.getTo().isEmpty();
     }
 
     private void setupEvents() {
@@ -59,13 +81,30 @@ public class TourDetailsViewModel {
     }
 
     public void save() {
+        if (saveDisabled.get()) {
+            return;
+        }
+
         try {
             tourModel.updateModel(tour); // Transfer changes from model to Tour instance
             tour = model.save(tour); // Save changed tour in backend model
             publisher.publish(Event.SEARCH_TERM_SEARCHED, ""); // Refresh results view by showing all
             publisher.publish(Event.TOUR_LIST_TOUR_SELECTED, tour.getId().toString()); // Select newly added tour entry
         } catch (InvalidTypeException e) {
-            throw new RuntimeException(e);
+            // TODO: Define more errors in tourModel
+            log.error(e.getStackTrace());
         }
+    }
+
+    public BooleanProperty saveDisabledProperty() {
+        return saveDisabled;
+    }
+
+    public boolean getSaveDisabled() {
+        return saveDisabled.get();
+    }
+
+    public boolean isSaveDisabled() {
+        return saveDisabled.get();
     }
 }

@@ -25,6 +25,10 @@ public class SearchBarView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupBindings();
+    }
+
+    private void setupBindings() {
         this.searchField.textProperty().bindBidirectional(viewModel.searchTextProperty());
         this.searchButton.disableProperty().bind(viewModel.searchDisabledProperty());
     }
