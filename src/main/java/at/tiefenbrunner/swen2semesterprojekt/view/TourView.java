@@ -1,15 +1,15 @@
 package at.tiefenbrunner.swen2semesterprojekt.view;
 
-import at.tiefenbrunner.swen2semesterprojekt.viewmodel.MainViewModel;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourViewModel;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainView implements Initializable {
-    private final MainViewModel viewModel;
+public class TourView implements Initializable {
+    private final TourViewModel viewModel;
 
-    public MainView(MainViewModel viewModel) {
+    public TourView(TourViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

@@ -33,10 +33,10 @@ public class ViewHandler {
     }
 
     public void start(Stage mainStage) throws IOException {
-        openView(Views.MAIN, mainStage);
+        openWindow(Windows.MAIN, mainStage);
     }
 
-    public void openView(Views viewToOpen, @Nullable Stage stage) throws IOException {
+    public void openWindow(Windows viewToOpen, @Nullable Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 ViewHandler.class.getResource(RES_SUBPATH + viewToOpen.fxml),
                 ResourceBundle.getBundle(RES_BASENAME_GUI_STRINGS, Locale.ENGLISH), // TODO: Make language configurable

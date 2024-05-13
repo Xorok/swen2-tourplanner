@@ -1,0 +1,13 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourListView">
+    <ListView fx:id="tourList"/>
+    <ButtonBar>
+        <buttons>
+            <Button text="-" ButtonBar.buttonData="LEFT"/>
+            <Button text="+" ButtonBar.buttonData="RIGHT"/>
+        </buttons>
+    </ButtonBar>
+</VBox>

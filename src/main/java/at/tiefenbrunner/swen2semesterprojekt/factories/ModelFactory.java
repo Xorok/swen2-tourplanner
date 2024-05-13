@@ -1,13 +1,13 @@
 package at.tiefenbrunner.swen2semesterprojekt.factories;
 
-import at.tiefenbrunner.swen2semesterprojekt.model.DataModel;
-import at.tiefenbrunner.swen2semesterprojekt.model.Model;
+import at.tiefenbrunner.swen2semesterprojekt.repository.TourMemoryRepository;
+import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 
 public class ModelFactory {
 
     private static ModelFactory instance;
 
-    private Model model;
+    private TourService model;
 
     private ModelFactory() {
     }
@@ -19,9 +19,9 @@ public class ModelFactory {
         return instance;
     }
 
-    public Model getModel() {
-        if(model == null)
-            model = new DataModel();
+    public TourService getModel() {
+        if (model == null)
+            model = new TourService(new TourMemoryRepository()); // TODO: Move to Factory
         return model;
     }
 }

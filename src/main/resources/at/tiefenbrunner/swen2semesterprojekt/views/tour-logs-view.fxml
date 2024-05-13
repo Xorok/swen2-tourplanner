@@ -1,0 +1,23 @@
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<TableView xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
+           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView">
+    <columns>
+        <TableColumn text="Date">
+            <cellValueFactory>
+                <PropertyValueFactory property="date"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Duration">
+            <cellValueFactory>
+                <PropertyValueFactory property="duration"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Distance">
+            <cellValueFactory>
+                <PropertyValueFactory property="distance"/>
+            </cellValueFactory>
+        </TableColumn>
+    </columns>
+</TableView>
