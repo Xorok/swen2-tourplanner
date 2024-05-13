@@ -59,7 +59,7 @@ public class TourListViewModel {
         if (searchTerm == null || searchTerm.isEmpty()) {
             showAllTours();
         } else {
-            changeTours(tourService.search(searchTerm));
+            changeTours(tourService.findByNameContains(searchTerm));
         }
     }
 

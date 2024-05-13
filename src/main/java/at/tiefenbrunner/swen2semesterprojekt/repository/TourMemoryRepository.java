@@ -4,7 +4,6 @@ package at.tiefenbrunner.swen2semesterprojekt.repository;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
 
-import java.awt.geom.Point2D;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,36 +25,36 @@ public class TourMemoryRepository implements TourRepository {
     private void setupTestData() {
         tours.add(new Tour(
                 UUID.randomUUID(),
-                "A short hike",
+                "Mugel mountain (Styria)",
                 "This is an easy hike up Mugel mountain.",
-                new Point2D.Double(16.229345, 48.007896),
-                new Point2D.Double(16.21841, 48.017254),
+                "Winter parking lot Niklasdorf, Styria, Austria", // new Point2D.Double(16.229345, 48.007896)?
+                "Mugel mountain, Styria, Austria",
                 TourType.HIKE,
                 5016,
                 Duration.ofMinutes(90),
-                RES_SUBPATH + "map-placeholder/map-placeholder.png"
+                RES_SUBPATH + "map-placeholder/map-placeholder1.jpg"
         ));
         tours.add(new Tour(
                 UUID.randomUUID(),
-                "The best bike trail",
-                "This is a bike trail.",
-                new Point2D.Double(16.229345, 48.007896),
-                new Point2D.Double(16.21841, 48.017254),
-                TourType.HIKE,
-                5016,
-                Duration.ofMinutes(90),
-                RES_SUBPATH + "map-placeholder/map-placeholder2.png"
+                "Bike Trail - Saalach Valley",
+                "This is a long bike trail.",
+                "Bruck, Salzburg",
+                "Salzburg Hauptbahnhof (S-Bahn)",
+                TourType.BIKE,
+                1200,
+                Duration.ofMinutes(530),
+                RES_SUBPATH + "map-placeholder/map-placeholder2.jpg"
         ));
         tours.add(new Tour(
                 UUID.randomUUID(),
-                "Trail running route",
-                "Trail running in the countryside of Austria.",
-                new Point2D.Double(16.229345, 48.007896),
-                new Point2D.Double(16.21841, 48.017254),
-                TourType.HIKE,
-                5016,
-                Duration.ofMinutes(90),
-                RES_SUBPATH + "map-placeholder/map-placeholder3.png"
+                "Lahngang lake Trail running route",
+                "This is a trail with scenic views.",
+                "Parking lot Gößl, Salzburg",
+                "Drausengatterl",
+                TourType.RUNNING,
+                18530,
+                Duration.ofMinutes(300),
+                RES_SUBPATH + "map-placeholder/map-placeholder3.jpg"
         ));
     }
 

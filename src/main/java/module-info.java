@@ -6,6 +6,7 @@ module at.tiefenbrunner.swen2semesterprojekt {
     requires java.desktop;
     requires static lombok;
     requires org.apache.logging.log4j;
+    requires jdk.jdi;
 
 
     opens at.tiefenbrunner.swen2semesterprojekt to javafx.fxml;
