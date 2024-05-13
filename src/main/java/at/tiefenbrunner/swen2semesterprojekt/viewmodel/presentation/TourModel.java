@@ -20,23 +20,11 @@ public class TourModel {
     private StringProperty description = new SimpleStringProperty();
     private StringProperty from = new SimpleStringProperty();
     private StringProperty to = new SimpleStringProperty();
-    private StringProperty tourType = new SimpleStringProperty();
+    private ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(TourType.BIKE);
     private DoubleProperty distanceM = new SimpleDoubleProperty();
     private LongProperty estimatedTimeMin = new SimpleLongProperty();
 
     public TourModel() {
-        initializeDefault();
-    }
-
-    private void initializeDefault() {
-        mapImg = new SimpleObjectProperty<>(mapImgPlaceholder);
-        name = new SimpleStringProperty();
-        description = new SimpleStringProperty();
-        from = new SimpleStringProperty();
-        to = new SimpleStringProperty();
-        tourType = new SimpleStringProperty();
-        distanceM = new SimpleDoubleProperty();
-        estimatedTimeMin = new SimpleLongProperty();
     }
 
     public void setModel(@Nullable Tour model) {
@@ -45,7 +33,7 @@ public class TourModel {
             this.description.set("");
             this.from.set("");
             this.to.set("");
-            this.tourType.set("");
+            this.tourType.set(TourType.BIKE);
             this.distanceM.set(0);
             this.estimatedTimeMin.set(0);
             this.mapImg.set(mapImgPlaceholder);
@@ -54,7 +42,7 @@ public class TourModel {
             this.description.set(model.getDescription());
             this.from.set(model.getFrom());
             this.to.set(model.getTo());
-            this.tourType.set(model.getTourType().displayLabel);
+            this.tourType.set(model.getTourType());
             this.distanceM.set(model.getDistanceM());
             this.estimatedTimeMin.set(model.getEstimatedTime().toMinutes());
             this.mapImg.set(new Image(model.getRouteMapImg(), true));
@@ -66,7 +54,7 @@ public class TourModel {
         model.setDescription(this.description.get());
         model.setFrom(this.from.get());
         model.setTo(this.to.get());
-        model.setTourType(TourType.mapFrom(this.tourType.get()));
+        model.setTourType(this.tourType.get());
         model.setDistanceM(this.distanceM.get());
         model.setEstimatedTime(Duration.ofMinutes(this.estimatedTimeMin.get()));
         model.setRouteMapImg(this.mapImg.get().getUrl());
@@ -88,7 +76,7 @@ public class TourModel {
         return to;
     }
 
-    public final StringProperty tourTypeProperty() {
+    public final ObjectProperty<TourType> tourTypeProperty() {
         return tourType;
     }
 
@@ -136,11 +124,11 @@ public class TourModel {
         this.to.set(to);
     }
 
-    public String getTourType() {
+    public TourType getTourType() {
         return tourType.get();
     }
 
-    public void setTourType(String tourType) {
+    public void setTourType(TourType tourType) {
         this.tourType.set(tourType);
     }
 

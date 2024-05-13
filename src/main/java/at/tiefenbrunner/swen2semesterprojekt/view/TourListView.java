@@ -28,6 +28,7 @@ public class TourListView implements Initializable {
     @FXML
     private void onAddNew() {
         viewModel.addNew();
+        tourList.getSelectionModel().clearSelection();
     }
 
     @FXML

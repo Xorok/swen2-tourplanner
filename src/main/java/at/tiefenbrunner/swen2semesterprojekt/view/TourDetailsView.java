@@ -1,9 +1,11 @@
 package at.tiefenbrunner.swen2semesterprojekt.view;
 
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourDetailsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -23,7 +25,7 @@ public class TourDetailsView implements Initializable {
     @FXML
     private TextField to;
     @FXML
-    private TextField type;
+    private ComboBox<TourType> type;
     @FXML
     private Label distance;
     @FXML
@@ -39,7 +41,12 @@ public class TourDetailsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupUiComponents();
         setupBindings();
+    }
+
+    private void setupUiComponents() {
+        type.getItems().setAll(TourType.values());
     }
 
     private void setupBindings() {
@@ -48,7 +55,7 @@ public class TourDetailsView implements Initializable {
         description.textProperty().bindBidirectional(viewModel.getTourModel().descriptionProperty());
         from.textProperty().bindBidirectional(viewModel.getTourModel().fromProperty());
         to.textProperty().bindBidirectional(viewModel.getTourModel().toProperty());
-        type.textProperty().bindBidirectional(viewModel.getTourModel().tourTypeProperty());
+        type.valueProperty().bindBidirectional(viewModel.getTourModel().tourTypeProperty());
         distance.textProperty().bind(viewModel.getTourModel().distanceMProperty().asString());
         time.textProperty().bind(viewModel.getTourModel().estimatedTimeMinProperty().asString());
     }
