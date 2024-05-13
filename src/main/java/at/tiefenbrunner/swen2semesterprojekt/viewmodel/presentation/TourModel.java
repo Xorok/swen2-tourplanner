@@ -1,12 +1,18 @@
-package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentationModels;
+package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
 import com.sun.jdi.InvalidTypeException;
 import javafx.beans.property.*;
+import javafx.scene.image.Image;
+
+import java.time.Duration;
+
+import static at.tiefenbrunner.swen2semesterprojekt.util.Constants.RES_SUBPATH;
 
 public class TourModel {
 
+    private ObjectProperty<Image> mapImg = new SimpleObjectProperty<>(new Image(RES_SUBPATH + "map-placeholder/map-placeholder.jpg", true));
     private StringProperty name = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
     private StringProperty from = new SimpleStringProperty();
@@ -26,6 +32,7 @@ public class TourModel {
         this.tourType.set(model.getTourType().displayLabel);
         this.distanceM.set(model.getDistanceM());
         this.estimatedTimeMin.set(model.getEstimatedTime().toMinutes());
+        this.mapImg.set(new Image(model.getRouteMapImg()));
     }
 
     public void updateModel(Tour model) throws InvalidTypeException {
@@ -34,6 +41,9 @@ public class TourModel {
         model.setFrom(this.from.get());
         model.setTo(this.to.get());
         model.setTourType(TourType.mapFrom(this.tourType.get()));
+        model.setDistanceM(this.distanceM.get());
+        model.setEstimatedTime(Duration.ofMinutes(this.estimatedTimeMin.get()));
+        model.setRouteMapImg(this.mapImg.get().getUrl());
     }
 
     public final StringProperty nameProperty() {
@@ -62,6 +72,10 @@ public class TourModel {
 
     public final LongProperty estimatedTimeMinProperty() {
         return estimatedTimeMin;
+    }
+
+    public final ObjectProperty<Image> mapImgProperty() {
+        return mapImg;
     }
 
     public String getName() {
@@ -118,5 +132,13 @@ public class TourModel {
 
     public void setEstimatedTimeMin(long estimatedTimeMin) {
         this.estimatedTimeMin.set(estimatedTimeMin);
+    }
+
+    public Image getMapImg() {
+        return mapImg.get();
+    }
+
+    public void setMapImg(Image mapImg) {
+        this.mapImg.set(mapImg);
     }
 }

@@ -10,8 +10,12 @@ module at.tiefenbrunner.swen2semesterprojekt {
 
 
     opens at.tiefenbrunner.swen2semesterprojekt to javafx.fxml;
+    opens at.tiefenbrunner.swen2semesterprojekt.view to javafx.fxml;
+
     exports at.tiefenbrunner.swen2semesterprojekt;
     exports at.tiefenbrunner.swen2semesterprojekt.view;
+    exports at.tiefenbrunner.swen2semesterprojekt.viewmodel;
     exports at.tiefenbrunner.swen2semesterprojekt.util;
-    opens at.tiefenbrunner.swen2semesterprojekt.view to javafx.fxml;
+    exports at.tiefenbrunner.swen2semesterprojekt.service;
+    exports at.tiefenbrunner.swen2semesterprojekt.event;
 }

@@ -4,6 +4,7 @@ import at.tiefenbrunner.swen2semesterprojekt.event.Event;
 import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation.TourModel;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.Optional;
@@ -15,10 +16,12 @@ public class TourDetailsViewModel {
     private final TourService model;
 
     private Tour tour;
+    private final TourModel tourModel;
 
     public TourDetailsViewModel(Publisher publisher, TourService model) {
         this.publisher = publisher;
         this.model = model;
+        this.tourModel = new TourModel();
 
         setupEvents();
     }
@@ -36,9 +39,14 @@ public class TourDetailsViewModel {
                 log.info("Couldn't find selected Tour with ID {}", uuidStr);
             } else {
                 tour = tourOpt.get();
+                tourModel.setModel(tour);
             }
         } catch (IllegalArgumentException e) {
             log.error(e.getStackTrace());
         }
+    }
+
+    public TourModel getTourModel() {
+        return tourModel;
     }
 }

@@ -3,7 +3,7 @@
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourListView">
-    <ListView fx:id="tourList"/>
+    <ListView fx:id="tourList" VBox.vgrow="ALWAYS"/>
     <ButtonBar>
         <buttons>
             <Button text="-" ButtonBar.buttonData="LEFT"/>

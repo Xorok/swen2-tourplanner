@@ -14,6 +14,8 @@ public class SearchBarView implements Initializable {
     private TextField searchField;
     @FXML
     private Button searchButton;
+    @FXML
+    private Button showAllButton;
 
     private final SearchBarViewModel viewModel;
 
@@ -23,12 +25,17 @@ public class SearchBarView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.searchField.textProperty()
-                .bindBidirectional(viewModel.searchTextProperty());
+        this.searchField.textProperty().bindBidirectional(viewModel.searchTextProperty());
+        this.searchButton.disableProperty().bind(viewModel.searchDisabledProperty());
     }
 
     @FXML
     protected void onSearch() {
         this.viewModel.search();
+    }
+
+    @FXML
+    protected void onShowAll() {
+        this.viewModel.showAll();
     }
 }

@@ -24,7 +24,7 @@ public class TourMemoryRepository implements TourRepository {
 
     private void setupTestData() {
         tours.add(new Tour(
-                UUID.randomUUID(),
+                UUID.fromString("e24b14cd-945c-4bab-b144-0bedf3d65237"),
                 "Mugel mountain (Styria)",
                 "This is an easy hike up Mugel mountain.",
                 "Winter parking lot Niklasdorf, Styria, Austria", // new Point2D.Double(16.229345, 48.007896)?
@@ -35,7 +35,7 @@ public class TourMemoryRepository implements TourRepository {
                 RES_SUBPATH + "map-placeholder/map-placeholder1.jpg"
         ));
         tours.add(new Tour(
-                UUID.randomUUID(),
+                UUID.fromString("ff9ef350-3ff6-4391-9758-b81fa7f57095"),
                 "Bike Trail - Saalach Valley",
                 "This is a long bike trail.",
                 "Bruck, Salzburg",
@@ -46,7 +46,7 @@ public class TourMemoryRepository implements TourRepository {
                 RES_SUBPATH + "map-placeholder/map-placeholder2.jpg"
         ));
         tours.add(new Tour(
-                UUID.randomUUID(),
+                UUID.fromString("3c721dec-9b72-4180-b26d-295b6a26a11d"),
                 "Lahngang lake Trail running route",
                 "This is a trail with scenic views.",
                 "Parking lot Gößl, Salzburg",
