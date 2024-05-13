@@ -2,6 +2,7 @@ package at.tiefenbrunner.swen2semesterprojekt.service;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.TourRepository;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,23 +16,27 @@ public class TourService {
         this.tourRepository = tourRepository;
     }
 
-    public List<Tour> findByNameContains(String term) {
-        return tourRepository.queryNames(term);
+    public List<Tour> findTourByNameContains(String term) {
+        return tourRepository.queryTourNames(term);
     }
 
-    public List<Tour> findAll() {
-        return tourRepository.findAll();
+    public List<Tour> findAllTours() {
+        return tourRepository.findAllTours();
     }
 
-    public Optional<Tour> findById(UUID id) {
-        return tourRepository.findById(id);
+    public Optional<Tour> findToursById(UUID id) {
+        return tourRepository.findTourById(id);
     }
 
-    public void delete(UUID id) {
-        tourRepository.delete(id);
+    public void deleteTour(UUID id) {
+        tourRepository.deleteTour(id);
     }
 
-    public Tour save(Tour tour) {
-        return tourRepository.save(tour);
+    public Tour saveTour(Tour tour) {
+        return tourRepository.saveTour(tour);
+    }
+
+    public List<TourLog> findAllLogsByTourId(UUID id) {
+        return tourRepository.findLogsByTourId(id);
     }
 }

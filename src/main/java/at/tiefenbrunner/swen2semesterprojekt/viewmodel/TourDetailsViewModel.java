@@ -59,7 +59,7 @@ public class TourDetailsViewModel {
     private void showTour(String uuidStr) {
         try {
             UUID uuid = UUID.fromString(uuidStr);
-            Optional<Tour> tourOpt = model.findById(uuid);
+            Optional<Tour> tourOpt = model.findToursById(uuid);
             if (tourOpt.isEmpty()) {
                 log.info("Couldn't find selected Tour with ID {}", uuidStr);
             } else {
@@ -87,7 +87,7 @@ public class TourDetailsViewModel {
 
         try {
             tourModel.updateModel(tour); // Transfer changes from model to Tour instance
-            tour = model.save(tour); // Save changed tour in backend model
+            tour = model.saveTour(tour); // Save changed tour in backend model
             publisher.publish(Event.SEARCH_TERM_SEARCHED, ""); // Refresh results view by showing all
             publisher.publish(Event.TOUR_LIST_TOUR_SELECTED, tour.getId().toString()); // Select newly added tour entry
         } catch (InvalidTypeException e) {

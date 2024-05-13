@@ -1,6 +1,7 @@
 package at.tiefenbrunner.swen2semesterprojekt.repository;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,13 +9,15 @@ import java.util.UUID;
 
 public interface TourRepository {
 
-    List<Tour> findAll();
+    List<Tour> findAllTours();
 
-    Tour save(Tour entity);
+    Tour saveTour(Tour entity);
 
-    void delete(UUID id);
+    void deleteTour(UUID id);
 
-    Optional<Tour> findById(UUID id);
+    Optional<Tour> findTourById(UUID id);
 
-    List<Tour> queryNames(String searchTerm);
+    List<Tour> queryTourNames(String searchTerm);
+    
+    List<TourLog> findLogsByTourId(UUID id);
 }

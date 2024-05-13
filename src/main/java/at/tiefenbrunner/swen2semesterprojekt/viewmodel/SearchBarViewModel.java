@@ -46,7 +46,7 @@ public class SearchBarViewModel {
     private void showName(String uuidStr) {
         try {
             UUID uuid = UUID.fromString(uuidStr);
-            Optional<Tour> tourOpt = model.findById(uuid);
+            Optional<Tour> tourOpt = model.findToursById(uuid);
             if (tourOpt.isEmpty()) {
                 log.info("Couldn't find selected Tour with ID {}", uuidStr);
             } else {

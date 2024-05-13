@@ -1,22 +1,38 @@
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<!--suppress XmlUnresolvedReference -->
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.control.*?>
 <TableView xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView">
+           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView"
+           fx:id="logsTable" prefWidth="600">
     <columns>
-        <TableColumn text="Date">
+        <TableColumn fx:id="dateTime" text="Date" prefWidth="${logsTable.width*0.2}">
             <cellValueFactory>
-                <PropertyValueFactory property="date"/>
+                <PropertyValueFactory property="dateTime"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn text="Duration">
+        <TableColumn text="Comment" prefWidth="${logsTable.width*0.4}">
             <cellValueFactory>
-                <PropertyValueFactory property="duration"/>
+                <PropertyValueFactory property="comment"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn text="Distance">
+        <TableColumn text="Difficulty" prefWidth="${logsTable.width*0.1}">
             <cellValueFactory>
-                <PropertyValueFactory property="distance"/>
+                <PropertyValueFactory property="difficulty"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Total Distance (m)" prefWidth="${logsTable.width*0.1}">
+            <cellValueFactory>
+                <PropertyValueFactory property="totalDistanceM"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="totalTime" text="Total Time (min)" prefWidth="${logsTable.width*0.1}">
+            <cellValueFactory>
+                <PropertyValueFactory property="totalTime"/>
+            </cellValueFactory>
+        </TableColumn>
+        <TableColumn text="Rating (0-100)" prefWidth="${logsTable.width*0.1}">
+            <cellValueFactory>
+                <PropertyValueFactory property="rating"/>
             </cellValueFactory>
         </TableColumn>
     </columns>

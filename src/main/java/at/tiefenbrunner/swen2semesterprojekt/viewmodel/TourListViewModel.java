@@ -21,10 +21,7 @@ public class TourListViewModel {
     private final ObservableList<String> tourNames = FXCollections.observableArrayList();
     private final IntegerProperty selectedTourIndex = new SimpleIntegerProperty();
 
-    public TourListViewModel(
-            Publisher publisher,
-            TourService model
-    ) {
+    public TourListViewModel(Publisher publisher, TourService model) {
         this.publisher = publisher;
         this.model = model;
 
@@ -54,7 +51,7 @@ public class TourListViewModel {
     }
 
     private void showAllTours() {
-        changeTours(model.findAll());
+        changeTours(model.findAllTours());
     }
 
     public void addNew() {
@@ -68,7 +65,7 @@ public class TourListViewModel {
 
         UUID idToDelete = tours.get(selectedTourIndex.get()).getId();
         publisher.publish(Event.TOUR_LIST_DELETE_TOUR, idToDelete.toString());
-        model.delete(idToDelete);
+        model.deleteTour(idToDelete);
         publisher.publish(Event.TOUR_LIST_DELETED_TOUR, idToDelete.toString());
     }
 
@@ -76,7 +73,7 @@ public class TourListViewModel {
         if (searchTerm == null || searchTerm.isEmpty()) {
             showAllTours();
         } else {
-            changeTours(model.findByNameContains(searchTerm));
+            changeTours(model.findTourByNameContains(searchTerm));
         }
     }
 
