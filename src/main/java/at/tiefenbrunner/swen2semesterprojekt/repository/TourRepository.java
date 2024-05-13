@@ -12,6 +12,8 @@ public interface TourRepository {
 
     Tour save(Tour entity);
 
+    void delete(UUID id);
+
     Optional<Tour> findById(UUID id);
 
     List<Tour> queryNames(String searchTerm);

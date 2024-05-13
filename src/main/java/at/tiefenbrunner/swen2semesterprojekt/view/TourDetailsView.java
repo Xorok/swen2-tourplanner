@@ -52,4 +52,9 @@ public class TourDetailsView implements Initializable {
         distance.textProperty().bind(viewModel.getTourModel().distanceMProperty().asString());
         time.textProperty().bind(viewModel.getTourModel().estimatedTimeMinProperty().asString());
     }
+
+    @FXML
+    private void onSave() {
+        viewModel.save();
+    }
 }

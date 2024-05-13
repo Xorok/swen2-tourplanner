@@ -24,4 +24,14 @@ public class TourListView implements Initializable {
         this.tourList.setItems(viewModel.getTourNames()); // Binding through Observable List
         this.viewModel.selectedTourIndexProperty().bind(tourList.getSelectionModel().selectedIndexProperty());
     }
+
+    @FXML
+    private void onAddNew() {
+        viewModel.addNew();
+    }
+
+    @FXML
+    private void onDelete() {
+        viewModel.delete();
+    }
 }

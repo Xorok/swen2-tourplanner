@@ -26,4 +26,12 @@ public class TourService {
     public Optional<Tour> findById(UUID id) {
         return tourRepository.findById(id);
     }
+
+    public void delete(UUID id) {
+        tourRepository.delete(id);
+    }
+
+    public Tour save(Tour tour) {
+        return tourRepository.save(tour);
+    }
 }

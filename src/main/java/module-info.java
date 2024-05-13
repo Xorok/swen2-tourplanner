@@ -18,4 +18,6 @@ module at.tiefenbrunner.swen2semesterprojekt {
     exports at.tiefenbrunner.swen2semesterprojekt.util;
     exports at.tiefenbrunner.swen2semesterprojekt.service;
     exports at.tiefenbrunner.swen2semesterprojekt.event;
+    exports at.tiefenbrunner.swen2semesterprojekt.repository;
+    exports at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 }

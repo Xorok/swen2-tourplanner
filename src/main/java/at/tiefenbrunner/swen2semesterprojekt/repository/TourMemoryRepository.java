@@ -64,10 +64,30 @@ public class TourMemoryRepository implements TourRepository {
     }
 
     @Override
-    public Tour save(Tour entity) {
-        tours.add(entity);
+    public Tour save(Tour newTour) {
+        if (newTour.getId() == null) {
+            newTour.setId(UUID.randomUUID());
+        } else {
+            Optional<Tour> entryOpt = findById(newTour.getId());
+            if (entryOpt.isPresent()) {
+                Tour tour = entryOpt.get();
+                tour.setName(newTour.getName());
+                tour.setDescription(newTour.getDescription());
+                tour.setFrom(newTour.getFrom());
+                tour.setTo(newTour.getTo());
+                tour.setTourType(newTour.getTourType());
+                tour.setDistanceM(newTour.getDistanceM());
+                return tour;
+            }
+        }
 
-        return entity;
+        tours.add(newTour);
+        return newTour;
+    }
+
+    @Override
+    public void delete(UUID id) {
+        tours.removeIf(tour -> tour.getId().equals(id));
     }
 
     @Override

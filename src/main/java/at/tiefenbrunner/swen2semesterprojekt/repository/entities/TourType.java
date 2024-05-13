@@ -24,4 +24,8 @@ public enum TourType {
             default -> throw new InvalidTypeException("No Type mapping for \"" + value + "\"!");
         };
     }
+
+    public String toString() {
+        return displayLabel;
+    }
 }

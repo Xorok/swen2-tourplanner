@@ -39,7 +39,7 @@
             <Label GridPane.columnIndex="0" GridPane.rowIndex="6">Estimated Time (min)</Label>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="time"/>
             <Button GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.halignment="RIGHT"
-                    fx:id="saveBtn" text="Save"/>
+                    fx:id="saveBtn" text="Save" onAction="#onSave"/>
         </GridPane>
     </ScrollPane>
 </VBox>

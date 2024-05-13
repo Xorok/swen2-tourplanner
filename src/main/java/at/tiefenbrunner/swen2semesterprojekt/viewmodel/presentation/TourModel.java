@@ -3,6 +3,7 @@ package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
 import com.sun.jdi.InvalidTypeException;
+import jakarta.annotation.Nullable;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
@@ -12,7 +13,9 @@ import static at.tiefenbrunner.swen2semesterprojekt.util.Constants.RES_SUBPATH;
 
 public class TourModel {
 
-    private ObjectProperty<Image> mapImg = new SimpleObjectProperty<>(new Image(RES_SUBPATH + "map-placeholder/map-placeholder.jpg", true));
+    private final Image mapImgPlaceholder = new Image(RES_SUBPATH + "map-placeholder/map-placeholder.jpg", true);
+
+    private ObjectProperty<Image> mapImg = new SimpleObjectProperty<>(mapImgPlaceholder);
     private StringProperty name = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
     private StringProperty from = new SimpleStringProperty();
@@ -22,17 +25,40 @@ public class TourModel {
     private LongProperty estimatedTimeMin = new SimpleLongProperty();
 
     public TourModel() {
+        initializeDefault();
     }
 
-    public void setModel(Tour model) {
-        this.name.set(model.getName());
-        this.description.set(model.getDescription());
-        this.from.set(model.getFrom());
-        this.to.set(model.getTo());
-        this.tourType.set(model.getTourType().displayLabel);
-        this.distanceM.set(model.getDistanceM());
-        this.estimatedTimeMin.set(model.getEstimatedTime().toMinutes());
-        this.mapImg.set(new Image(model.getRouteMapImg()));
+    private void initializeDefault() {
+        mapImg = new SimpleObjectProperty<>(mapImgPlaceholder);
+        name = new SimpleStringProperty();
+        description = new SimpleStringProperty();
+        from = new SimpleStringProperty();
+        to = new SimpleStringProperty();
+        tourType = new SimpleStringProperty();
+        distanceM = new SimpleDoubleProperty();
+        estimatedTimeMin = new SimpleLongProperty();
+    }
+
+    public void setModel(@Nullable Tour model) {
+        if (model == null) {
+            this.name.set("");
+            this.description.set("");
+            this.from.set("");
+            this.to.set("");
+            this.tourType.set("");
+            this.distanceM.set(0);
+            this.estimatedTimeMin.set(0);
+            this.mapImg.set(mapImgPlaceholder);
+        } else {
+            this.name.set(model.getName());
+            this.description.set(model.getDescription());
+            this.from.set(model.getFrom());
+            this.to.set(model.getTo());
+            this.tourType.set(model.getTourType().displayLabel);
+            this.distanceM.set(model.getDistanceM());
+            this.estimatedTimeMin.set(model.getEstimatedTime().toMinutes());
+            this.mapImg.set(new Image(model.getRouteMapImg(), true));
+        }
     }
 
     public void updateModel(Tour model) throws InvalidTypeException {

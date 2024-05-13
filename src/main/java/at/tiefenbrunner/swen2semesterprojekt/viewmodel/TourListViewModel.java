@@ -10,11 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TourListViewModel {
 
     private final Publisher publisher;
-    private final TourService tourService;
+    private final TourService model;
 
     private List<Tour> tours;
     private final ObservableList<String> tourNames = FXCollections.observableArrayList();
@@ -22,10 +23,10 @@ public class TourListViewModel {
 
     public TourListViewModel(
             Publisher publisher,
-            TourService tourService
+            TourService model
     ) {
         this.publisher = publisher;
-        this.tourService = tourService;
+        this.model = model;
 
         setupEvents();
         showAllTours();
@@ -38,6 +39,7 @@ public class TourListViewModel {
 
         // on search event, update terms in list
         publisher.subscribe(Event.SEARCH_TERM_SEARCHED, this::queryTours);
+        publisher.subscribe(Event.TOUR_LIST_DELETED_TOUR, (deletedTourId) -> queryTours(""));
     }
 
     public void selectTour() {
@@ -52,14 +54,29 @@ public class TourListViewModel {
     }
 
     private void showAllTours() {
-        changeTours(tourService.findAll());
+        changeTours(model.findAll());
+    }
+
+    public void addNew() {
+        publisher.publish(Event.TOUR_LIST_ADD_NEW_TOUR, "");
+    }
+
+    public void delete() {
+        if (selectedTourIndex.get() == -1) {
+            return;
+        }
+
+        UUID idToDelete = tours.get(selectedTourIndex.get()).getId();
+        publisher.publish(Event.TOUR_LIST_DELETE_TOUR, idToDelete.toString());
+        model.delete(idToDelete);
+        publisher.publish(Event.TOUR_LIST_DELETED_TOUR, idToDelete.toString());
     }
 
     private void queryTours(String searchTerm) {
         if (searchTerm == null || searchTerm.isEmpty()) {
             showAllTours();
         } else {
-            changeTours(tourService.findByNameContains(searchTerm));
+            changeTours(model.findByNameContains(searchTerm));
         }
     }
 
