@@ -27,7 +27,8 @@
             <Label GridPane.columnIndex="0" GridPane.rowIndex="0">Name</Label>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="name"/>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="1">Tour Description</Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="description"/>
+            <TextArea GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="description"
+                      prefRowCount="3"/>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="2">From</Label>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="from"/>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="3">To</Label>

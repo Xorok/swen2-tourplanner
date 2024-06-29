@@ -4,13 +4,11 @@ import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourDetailsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class TourDetailsView implements Initializable {
@@ -19,7 +17,7 @@ public class TourDetailsView implements Initializable {
     @FXML
     private TextField name;
     @FXML
-    private TextField description;
+    private TextArea description;
     @FXML
     private TextField from;
     @FXML
@@ -46,7 +44,7 @@ public class TourDetailsView implements Initializable {
     }
 
     private void setupUiComponents() {
-        type.getItems().setAll(TourType.values());
+        type.getItems().setAll(Arrays.asList(new TourType("TEST"))); // TODO
     }
 
     private void setupBindings() {

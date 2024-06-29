@@ -44,16 +44,25 @@ public class TourDetailsViewModel {
     }
 
     private boolean formFieldIsEmpty() {
-        return tourModel.getName() == null || tourModel.getName().isEmpty() ||
-                tourModel.getDescription() == null || tourModel.getDescription().isEmpty() ||
-                tourModel.getFrom() == null || tourModel.getFrom().isEmpty() ||
-                tourModel.getTo() == null || tourModel.getTo().isEmpty();
+        return tourModel.getName() == null || tourModel.getName().isBlank() ||
+                tourModel.getDescription() == null || tourModel.getDescription().isBlank() ||
+                tourModel.getFrom() == null || tourModel.getFrom().isBlank() ||
+                tourModel.getTo() == null || tourModel.getTo().isBlank();
     }
 
     private void setupEvents() {
         // on search event, update terms in list
         publisher.subscribe(Event.TOUR_LIST_TOUR_SELECTED, this::showTour);
         publisher.subscribe(Event.TOUR_LIST_ADD_NEW_TOUR, (empty) -> resetData());
+        publisher.subscribe(Event.TOUR_LIST_DELETE_TOUR, (delId) -> {
+            if (isCurrentTour(delId)) {
+                resetData();
+            }
+        });
+    }
+
+    private boolean isCurrentTour(String id) {
+        return (tour.getId() != null && tour.getId().toString().equals(id));
     }
 
     private void showTour(String uuidStr) {

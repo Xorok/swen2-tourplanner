@@ -17,7 +17,7 @@ public class TourService {
     }
 
     public List<Tour> findTourByNameContains(String term) {
-        return tourRepository.queryTourNames(term);
+        return tourRepository.queryTours(term);
     }
 
     public List<Tour> findAllTours() {

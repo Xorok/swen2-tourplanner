@@ -17,7 +17,7 @@ public interface TourRepository {
 
     Optional<Tour> findTourById(UUID id);
 
-    List<Tour> queryTourNames(String searchTerm);
-    
+    List<Tour> queryTours(String searchTerm);
+
     List<TourLog> findLogsByTourId(UUID id);
 }

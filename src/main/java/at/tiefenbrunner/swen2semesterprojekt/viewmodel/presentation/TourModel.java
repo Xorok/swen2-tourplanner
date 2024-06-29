@@ -20,8 +20,8 @@ public class TourModel {
     private StringProperty description = new SimpleStringProperty();
     private StringProperty from = new SimpleStringProperty();
     private StringProperty to = new SimpleStringProperty();
-    private ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(TourType.BIKE);
-    private DoubleProperty distanceM = new SimpleDoubleProperty();
+    private ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(new TourType("TEST")); // TODO
+    private IntegerProperty distanceM = new SimpleIntegerProperty();
     private LongProperty estimatedTimeMin = new SimpleLongProperty();
 
     public TourModel() {
@@ -33,7 +33,7 @@ public class TourModel {
             this.description.set("");
             this.from.set("");
             this.to.set("");
-            this.tourType.set(TourType.BIKE);
+            this.tourType.set(new TourType("TEST")); // TODO
             this.distanceM.set(0);
             this.estimatedTimeMin.set(0);
             this.mapImg.set(mapImgPlaceholder);
@@ -80,7 +80,7 @@ public class TourModel {
         return tourType;
     }
 
-    public final DoubleProperty distanceMProperty() {
+    public final IntegerProperty distanceMProperty() {
         return distanceM;
     }
 
@@ -136,7 +136,7 @@ public class TourModel {
         return distanceM.get();
     }
 
-    public void setDistanceM(double distanceM) {
+    public void setDistanceM(int distanceM) {
         this.distanceM.set(distanceM);
     }
 

@@ -5,19 +5,15 @@ module at.tiefenbrunner.swen2semesterprojekt {
     requires jakarta.annotation;
     requires java.desktop;
     requires static lombok;
+    requires org.hibernate.orm.core;
     requires org.apache.logging.log4j;
     requires jdk.jdi;
-
+    requires jakarta.persistence;
 
     opens at.tiefenbrunner.swen2semesterprojekt to javafx.fxml;
     opens at.tiefenbrunner.swen2semesterprojekt.view to javafx.fxml;
+    opens at.tiefenbrunner.swen2semesterprojekt.util to javafx.fxml;
+    opens at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 
     exports at.tiefenbrunner.swen2semesterprojekt;
-    exports at.tiefenbrunner.swen2semesterprojekt.view;
-    exports at.tiefenbrunner.swen2semesterprojekt.viewmodel;
-    exports at.tiefenbrunner.swen2semesterprojekt.util;
-    exports at.tiefenbrunner.swen2semesterprojekt.service;
-    exports at.tiefenbrunner.swen2semesterprojekt.event;
-    exports at.tiefenbrunner.swen2semesterprojekt.repository;
-    exports at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 }

@@ -1,29 +1,21 @@
 package at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 
-import com.sun.jdi.InvalidTypeException;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public enum TourDifficulty {
-    EASY("EASY"),
-    MEDIUM("MEDIUM"),
-    HARD("HARD"); // TODO: Move to gui_string resource file
+@Entity
+@Table(name = "td_tour_difficulty")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class TourDifficulty {
 
-    public final String displayLabel;
-
-    private TourDifficulty(String displayLabel) {
-        this.displayLabel = displayLabel;
-    }
-
-    public static TourDifficulty mapFrom(String value) throws InvalidTypeException {
-        value = value != null ? value.toUpperCase() : "";
-        return switch (value) {
-            case "EASY" -> EASY;
-            case "MEDIUM" -> MEDIUM;
-            case "HARD" -> HARD;
-            default -> throw new InvalidTypeException("No Difficulty mapping for \"" + value + "\"!");
-        };
-    }
-
-    public String toString() {
-        return displayLabel;
-    }
+    @Id
+    @Column(name = "td_id")
+    private String id;
 }
