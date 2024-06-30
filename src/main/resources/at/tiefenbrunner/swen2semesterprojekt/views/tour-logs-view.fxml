@@ -3,24 +3,25 @@
 <?import javafx.scene.control.*?>
 <TableView xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
            fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView"
-           fx:id="logsTable" prefWidth="600">
+           fx:id="logsTable" prefWidth="600"
+           editable="true">
     <columns>
-        <TableColumn fx:id="dateTime" text="Date" prefWidth="${logsTable.width*0.2}">
+        <TableColumn fx:id="dateTime" text="Date" prefWidth="${logsTable.width*0.1}" editable="false">
             <cellValueFactory>
                 <PropertyValueFactory property="dateTime"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn text="Comment" prefWidth="${logsTable.width*0.4}">
+        <TableColumn fx:id="comment" text="Comment" prefWidth="${logsTable.width*0.4}">
             <cellValueFactory>
                 <PropertyValueFactory property="comment"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn text="Difficulty" prefWidth="${logsTable.width*0.1}">
+        <TableColumn fx:id="tourDifficulty" text="Difficulty" prefWidth="${logsTable.width*0.2}">
             <cellValueFactory>
                 <PropertyValueFactory property="difficulty"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn text="Total Distance (m)" prefWidth="${logsTable.width*0.1}">
+        <TableColumn fx:id="distance" text="Total Distance (m)" prefWidth="${logsTable.width*0.1}">
             <cellValueFactory>
                 <PropertyValueFactory property="totalDistanceM"/>
             </cellValueFactory>
@@ -30,7 +31,7 @@
                 <PropertyValueFactory property="totalTime"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn text="Rating (0-100)" prefWidth="${logsTable.width*0.1}">
+        <TableColumn fx:id="rating" text="Rating (0-100)" prefWidth="${logsTable.width*0.1}">
             <cellValueFactory>
                 <PropertyValueFactory property="rating"/>
             </cellValueFactory>

@@ -8,7 +8,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class TourDetailsView implements Initializable {
@@ -44,7 +43,7 @@ public class TourDetailsView implements Initializable {
     }
 
     private void setupUiComponents() {
-        type.getItems().setAll(Arrays.asList(new TourType("TEST"))); // TODO
+        type.getItems().setAll(TourType.values());
     }
 
     private void setupBindings() {

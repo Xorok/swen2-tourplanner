@@ -9,15 +9,17 @@ import java.util.UUID;
 
 public interface TourRepository {
 
-    List<Tour> findAllTours();
-
     Tour saveTour(Tour entity);
 
     void deleteTour(UUID id);
+
+    List<Tour> findAllTours();
 
     Optional<Tour> findTourById(UUID id);
 
     List<Tour> queryTours(String searchTerm);
 
-    List<TourLog> findLogsByTourId(UUID id);
+    TourLog saveTourLog(TourLog entity);
+
+    List<TourLog> findTourLogsByTourId(UUID id);
 }

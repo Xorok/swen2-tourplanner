@@ -1,4 +1,4 @@
-<?import at.tiefenbrunner.swen2semesterprojekt.util.ImageViewPane?>
+<?import at.tiefenbrunner.swen2semesterprojekt.view.util.ImageViewPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>

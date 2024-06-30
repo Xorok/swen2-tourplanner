@@ -20,7 +20,7 @@ public class TourModel {
     private StringProperty description = new SimpleStringProperty();
     private StringProperty from = new SimpleStringProperty();
     private StringProperty to = new SimpleStringProperty();
-    private ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(new TourType("TEST")); // TODO
+    private ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(TourType.BIKE);
     private IntegerProperty distanceM = new SimpleIntegerProperty();
     private LongProperty estimatedTimeMin = new SimpleLongProperty();
 
@@ -33,7 +33,7 @@ public class TourModel {
             this.description.set("");
             this.from.set("");
             this.to.set("");
-            this.tourType.set(new TourType("TEST")); // TODO
+            this.tourType.set(TourType.BIKE);
             this.distanceM.set(0);
             this.estimatedTimeMin.set(0);
             this.mapImg.set(mapImgPlaceholder);
@@ -49,15 +49,15 @@ public class TourModel {
         }
     }
 
-    public void updateModel(Tour model) throws InvalidTypeException {
-        model.setName(this.name.get());
-        model.setDescription(this.description.get());
-        model.setFrom(this.from.get());
-        model.setTo(this.to.get());
-        model.setTourType(this.tourType.get());
-        model.setDistanceM(this.distanceM.get());
-        model.setEstimatedTime(Duration.ofMinutes(this.estimatedTimeMin.get()));
-        model.setRouteMapImg(this.mapImg.get().getUrl());
+    public void transferDataToTour(Tour tour) throws InvalidTypeException {
+        tour.setName(this.name.get());
+        tour.setDescription(this.description.get());
+        tour.setFrom(this.from.get());
+        tour.setTo(this.to.get());
+        tour.setTourType(this.tourType.get());
+        tour.setDistanceM(this.distanceM.get());
+        tour.setEstimatedTime(Duration.ofMinutes(this.estimatedTimeMin.get()));
+        tour.setRouteMapImg(this.mapImg.get().getUrl());
     }
 
     public final StringProperty nameProperty() {

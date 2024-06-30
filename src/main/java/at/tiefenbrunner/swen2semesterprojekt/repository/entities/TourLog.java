@@ -18,7 +18,7 @@ public class TourLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "tl_id")
+    @Column(name = "tl_id", insertable = false, updatable = false, nullable = false)
     private UUID id;
 
     @ManyToOne
@@ -37,8 +37,8 @@ public class TourLog {
     @Column(name = "tl_time_min", nullable = false)
     private Duration totalTime;
 
-    @ManyToOne
-    @JoinColumn(name = "tl_td_difficulty", nullable = false)
+    @Column(name = "tl_difficulty", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TourDifficulty difficulty;
 
     @Column(name = "tl_rating", nullable = false)

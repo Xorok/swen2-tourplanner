@@ -59,6 +59,7 @@ public class TourDetailsViewModel {
                 resetData();
             }
         });
+        publisher.subscribe(Event.SEARCH_TERM_SEARCHED, (term) -> resetData());
     }
 
     private boolean isCurrentTour(String id) {
@@ -95,10 +96,10 @@ public class TourDetailsViewModel {
         }
 
         try {
-            tourModel.updateModel(tour); // Transfer changes from model to Tour instance
-            tour = model.saveTour(tour); // Save changed tour in backend model
+            tourModel.transferDataToTour(tour); // Transfer changes from model to Tour instance
+            Tour savedTour = model.saveTour(tour); // Temporarily save newly added database tour
             publisher.publish(Event.SEARCH_TERM_SEARCHED, ""); // Refresh results view by showing all
-            publisher.publish(Event.TOUR_LIST_TOUR_SELECTED, tour.getId().toString()); // Select newly added tour entry
+            publisher.publish(Event.TOUR_LIST_TOUR_SELECTED, savedTour.getId().toString()); // Select newly added tour entry
         } catch (InvalidTypeException e) {
             // TODO: Define more errors in tourModel
             log.error(e.getStackTrace());

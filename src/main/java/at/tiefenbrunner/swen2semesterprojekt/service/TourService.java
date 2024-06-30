@@ -37,6 +37,6 @@ public class TourService {
     }
 
     public List<TourLog> findAllLogsByTourId(UUID id) {
-        return tourRepository.findLogsByTourId(id);
+        return tourRepository.findTourLogsByTourId(id);
     }
 }

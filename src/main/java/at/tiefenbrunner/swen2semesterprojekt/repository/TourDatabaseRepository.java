@@ -8,18 +8,58 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class TourDbRepository implements TourRepository {
+@Log4j2
+public class TourDatabaseRepository implements TourRepository {
 
     private final EntityManagerFactory entityManagerFactory;
 
-    public TourDbRepository() {
+    public TourDatabaseRepository() {
         entityManagerFactory =
                 Persistence.createEntityManagerFactory("hibernate");
+
+    }
+
+    @Override
+    public Tour saveTour(Tour tour) {
+        return (tour.getId() == null) ?
+                insertTour(tour) :
+                updateTour(tour);
+    }
+
+    private Tour insertTour(Tour newTour) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            entityManager.persist(newTour);
+            entityManager.getTransaction().commit();
+        }
+        return newTour;
+    }
+
+    private Tour updateTour(Tour updatedTour) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.merge(updatedTour);
+            transaction.commit();
+        }
+        return updatedTour;
+    }
+
+    @Override
+    public void deleteTour(UUID id) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            Tour tour = entityManager.find(Tour.class, id);
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.remove(tour);
+            transaction.commit();
+        }
     }
 
     @Override
@@ -31,44 +71,6 @@ public class TourDbRepository implements TourRepository {
 
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery(all).getResultList();
-        }
-    }
-
-    @Override
-    public Tour saveTour(Tour tour) {
-        return (tour.getId() == null) ?
-                insert(tour) :
-                update(tour);
-    }
-
-    private Tour update(Tour updatedTour) {
-        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
-            entityManager.merge(updatedTour);
-            transaction.commit();
-        }
-        return updatedTour;
-    }
-
-    private Tour insert(Tour newTour) {
-        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
-            entityManager.persist(newTour);
-            transaction.commit();
-        }
-        return newTour;
-    }
-
-    @Override
-    public void deleteTour(UUID id) {
-        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            Tour tour = entityManager.find(Tour.class, id);
-            EntityTransaction transaction = entityManager.getTransaction();
-            transaction.begin();
-            entityManager.remove(tour);
-            transaction.commit();
         }
     }
 
@@ -92,28 +94,30 @@ public class TourDbRepository implements TourRepository {
         Predicate termPredicate =
                 builder.or(
                         builder.like(
-                                builder.lower(root.get("t_name")), "%" + searchTerm + "%"
+                                builder.lower(root.get("name")), "%" + searchTerm + "%"
                         ),
                         builder.like(
-                                builder.lower(root.get("t_desc")), "%" + searchTerm + "%"
+                                builder.lower(root.get("description")), "%" + searchTerm + "%"
                         ),
                         builder.like(
-                                builder.lower(root.get("t_from")), "%" + searchTerm + "%"
+                                builder.lower(root.get("from")), "%" + searchTerm + "%"
                         ),
                         builder.like(
-                                builder.lower(root.get("t_to")), "%" + searchTerm + "%"
+                                builder.lower(root.get("to")), "%" + searchTerm + "%"
                         ),
                         builder.like(
-                                builder.lower(root.get("t_tt_type")), "%" + searchTerm + "%" // TODO: Add converted localization to search in future
+                                builder.lower(root.get("tourType")), "%" + searchTerm + "%" // TODO: Add converted localization to search in future
                         ),
-                        builder.like(
-                                builder.lower(root.get("t_distance_m")), "%" + searchTerm + "%"
+                        builder.equal(
+                                root.get("distanceM").as(String.class), searchTerm
                         ),
-                        builder.like(
-                                builder.lower(root.get("t_time_min")), "%" + searchTerm + "%"
+                        builder.equal(
+                                root.get("estimatedTime").as(String.class), searchTerm // TODO: Check how this works
                         )
                 );
         query.where(termPredicate);
+
+        // TODO: Add logs search
 
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery(query).getResultList();
@@ -123,12 +127,38 @@ public class TourDbRepository implements TourRepository {
     }
 
     @Override
-    public List<TourLog> findLogsByTourId(UUID id) {
+    public TourLog saveTourLog(TourLog tourLog) {
+        return (tourLog.getId() == null) ?
+                insertTourLog(tourLog) :
+                updateTourLog(tourLog);
+    }
+
+    private TourLog insertTourLog(TourLog newTourLog) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            entityManager.persist(newTourLog);
+            entityManager.getTransaction().commit();
+        }
+        return newTourLog;
+    }
+
+    private TourLog updateTourLog(TourLog updatedTourLog) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.merge(updatedTourLog);
+            transaction.commit();
+        }
+        return updatedTourLog;
+    }
+
+    @Override
+    public List<TourLog> findTourLogsByTourId(UUID id) {
         CriteriaBuilder builder = entityManagerFactory.getCriteriaBuilder();
         CriteriaQuery<TourLog> query = builder.createQuery(TourLog.class);
         Root<TourLog> root = query.from(TourLog.class);
 
-        Predicate termPredicate = builder.equal(root.get("tl_t_tour"), id);
+        Predicate termPredicate = builder.equal(root.get("tour").get("id"), id);
         query.where(termPredicate);
 
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {

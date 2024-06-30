@@ -16,4 +16,5 @@ module at.tiefenbrunner.swen2semesterprojekt {
     opens at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 
     exports at.tiefenbrunner.swen2semesterprojekt;
+    opens at.tiefenbrunner.swen2semesterprojekt.view.util to javafx.fxml;
 }

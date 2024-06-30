@@ -17,7 +17,7 @@ public class Tour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "t_id")
+    @Column(name = "t_id", insertable = false, updatable = false, nullable = false)
     private UUID id;
 
     @Column(name = "t_name", nullable = false)
@@ -32,14 +32,14 @@ public class Tour {
     @Column(name = "t_to", nullable = false)
     private String to;
 
-    @ManyToOne
-    @JoinColumn(name = "t_tt_type", nullable = false)
+    @Column(name = "t_type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private TourType tourType;
 
     @Column(name = "t_distance_m", nullable = true)
     private Integer distanceM;
 
-    @Column(name = "t_time_min", nullable = true)
+    @Column(name = "t_time", nullable = true)
     private Duration estimatedTime;
 
     @Column(name = "t_route_img", nullable = true)

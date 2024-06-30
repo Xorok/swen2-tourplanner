@@ -34,6 +34,7 @@ public class TourLogsViewModel {
                 resetData();
             }
         });
+        publisher.subscribe(Event.SEARCH_TERM_SEARCHED, (term) -> resetData());
     }
 
     private boolean isCurrentTour(String id) {

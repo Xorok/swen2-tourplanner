@@ -1,4 +1,4 @@
-package at.tiefenbrunner.swen2semesterprojekt.util;
+package at.tiefenbrunner.swen2semesterprojekt.view.util;
 
 /*
  * Copyright (c) 2012, Oracle and/or its affiliates. All rights reserved.
