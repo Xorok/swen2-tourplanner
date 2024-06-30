@@ -3,10 +3,9 @@
 <?import javafx.scene.control.*?>
 <TableView xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
            fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView"
-           fx:id="logsTable" prefWidth="600"
-           editable="true">
+           fx:id="logsTable" prefWidth="600">
     <columns>
-        <TableColumn fx:id="dateTime" text="Date" prefWidth="${logsTable.width*0.1}" editable="false">
+        <TableColumn fx:id="dateTime" text="Timestamp" prefWidth="${logsTable.width*0.1}">
             <cellValueFactory>
                 <PropertyValueFactory property="dateTime"/>
             </cellValueFactory>
@@ -31,7 +30,7 @@
                 <PropertyValueFactory property="totalTime"/>
             </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="rating" text="Rating (0-100)" prefWidth="${logsTable.width*0.1}">
+        <TableColumn fx:id="rating" text="Rating (1-100)" prefWidth="${logsTable.width*0.1}">
             <cellValueFactory>
                 <PropertyValueFactory property="rating"/>
             </cellValueFactory>

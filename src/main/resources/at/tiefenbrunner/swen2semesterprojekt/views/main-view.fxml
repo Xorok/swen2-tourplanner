@@ -11,7 +11,7 @@
     </top>
 
     <left>
-        <fx:include source="tour-list-view.fxml"/>
+        <fx:include source="tours-list-view.fxml"/>
     </left>
 
     <center>

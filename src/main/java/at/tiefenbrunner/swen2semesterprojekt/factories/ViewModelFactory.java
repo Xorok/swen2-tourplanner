@@ -14,10 +14,11 @@ public class ViewModelFactory {
     // View-Models
     private MainViewModel mainViewModel;
     private SearchBarViewModel searchBarViewModel;
-    private TourListViewModel tourListViewModel;
+    private ToursListViewModel toursListViewModel;
     private TourViewModel tourViewModel;
     private TourDetailsViewModel tourDetailsViewModel;
     private TourLogsViewModel tourLogsViewModel;
+    private TourLogDetailsViewModel tourLogDetailsViewModel;
 
     private ViewModelFactory(ModelFactory modelFactory) {
         publisher = new Publisher(); // TODO: Move to Factory
@@ -43,10 +44,10 @@ public class ViewModelFactory {
         return searchBarViewModel;
     }
 
-    public TourListViewModel getTourListViewModel() {
-        if (tourListViewModel == null)
-            tourListViewModel = new TourListViewModel(publisher, modelFactory.getModel());
-        return tourListViewModel;
+    public ToursListViewModel getTourListViewModel() {
+        if (toursListViewModel == null)
+            toursListViewModel = new ToursListViewModel(publisher, modelFactory.getModel());
+        return toursListViewModel;
     }
 
     public TourViewModel getTourViewModel() {
@@ -65,5 +66,11 @@ public class ViewModelFactory {
         if (tourLogsViewModel == null)
             tourLogsViewModel = new TourLogsViewModel(publisher, modelFactory.getModel());
         return tourLogsViewModel;
+    }
+
+    public TourLogDetailsViewModel getTourLogDetailsViewModel() {
+        if (tourLogDetailsViewModel == null)
+            tourLogDetailsViewModel = new TourLogDetailsViewModel(publisher, modelFactory.getModel());
+        return tourLogDetailsViewModel;
     }
 }

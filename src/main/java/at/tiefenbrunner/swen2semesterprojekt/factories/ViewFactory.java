@@ -1,5 +1,6 @@
 package at.tiefenbrunner.swen2semesterprojekt.factories;
 
+import at.tiefenbrunner.swen2semesterprojekt.core.ViewHandler;
 import at.tiefenbrunner.swen2semesterprojekt.view.*;
 
 public class ViewFactory {
@@ -20,15 +21,15 @@ public class ViewFactory {
         return instance;
     }
 
-    public Object create(Class<?> viewClass) {
+    public Object create(Class<?> viewClass, ViewHandler viewHandler) {
         if (viewClass == MainView.class) {
             return new MainView(viewModelFactory.getMainViewModel());
         }
         if (viewClass == SearchBarView.class) {
             return new SearchBarView(viewModelFactory.getSearchBarViewModel());
         }
-        if (viewClass == TourListView.class) {
-            return new TourListView(viewModelFactory.getTourListViewModel());
+        if (viewClass == ToursListView.class) {
+            return new ToursListView(viewModelFactory.getTourListViewModel());
         }
         if (viewClass == TourView.class) {
             return new TourView(viewModelFactory.getTourViewModel());
@@ -37,7 +38,10 @@ public class ViewFactory {
             return new TourDetailsView(viewModelFactory.getTourDetailsViewModel());
         }
         if (viewClass == TourLogsView.class) {
-            return new TourLogsView(viewModelFactory.getTourLogsViewModel());
+            return new TourLogsView(viewModelFactory.getTourLogsViewModel(), viewHandler);
+        }
+        if (viewClass == TourLogDetailsView.class) {
+            return new TourLogDetailsView(viewModelFactory.getTourLogDetailsViewModel());
         }
 
         throw new IllegalArgumentException("Unknown view class: " + viewClass);

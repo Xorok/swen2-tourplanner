@@ -41,7 +41,7 @@ public class ViewHandler {
                 ViewHandler.class.getResource(RES_SUBPATH + viewToOpen.fxml),
                 ResourceBundle.getBundle(RES_BASENAME_GUI_STRINGS, Locale.ENGLISH), // TODO: Make language configurable
                 new JavaFXBuilderFactory(),
-                viewFactory::create
+                (Class<?> viewClass) -> viewFactory.create(viewClass, this)
         );
         Parent view = loader.load();
         Scene scene = new Scene(view);

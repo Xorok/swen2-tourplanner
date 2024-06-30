@@ -7,9 +7,11 @@ import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 import jakarta.annotation.Nullable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.UUID;
 
+@Log4j2
 public class TourLogsViewModel {
     private final Publisher publisher;
     private final TourService model;
@@ -35,6 +37,11 @@ public class TourLogsViewModel {
             }
         });
         publisher.subscribe(Event.SEARCH_TERM_SEARCHED, (term) -> resetData());
+        publisher.subscribe(Event.TOUR_LOGS_CHANGED, (changedTourId) -> {
+            if (isCurrentTour(changedTourId)) {
+                showLogs(changedTourId);
+            }
+        });
     }
 
     private boolean isCurrentTour(String id) {
@@ -49,6 +56,16 @@ public class TourLogsViewModel {
     private void resetData() {
         tourId = null;
         logs.clear();
+    }
+
+    public void createTourLog() {
+        if (tourId != null) {
+            publisher.publish(Event.TOUR_LOGS_CREATE, tourId);
+        }
+    }
+
+    public void editTourLog(TourLog tourLog) {
+        publisher.publish(Event.TOUR_LOGS_EDIT, tourLog.getId().toString());
     }
 
     public ObservableList<TourLog> getLogs() {

@@ -3,6 +3,7 @@ package at.tiefenbrunner.swen2semesterprojekt.repository;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.service.ConfigService;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -12,17 +13,25 @@ import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.UUID;
 
 @Log4j2
 public class TourDatabaseRepository implements TourRepository {
 
     private final EntityManagerFactory entityManagerFactory;
+    private final ConfigService configService;
 
-    public TourDatabaseRepository() {
-        entityManagerFactory =
-                Persistence.createEntityManagerFactory("hibernate");
+    public TourDatabaseRepository(ConfigService configService) {
+        this.configService = configService;
 
+        Properties dbConfig = new Properties();
+        dbConfig.setProperty("jakarta.persistence.jdbc.driver", configService.getConfigValue("db.driver"));
+        dbConfig.setProperty("jakarta.persistence.jdbc.url", configService.getConfigValue("db.url"));
+        dbConfig.setProperty("jakarta.persistence.jdbc.user", configService.getConfigValue("db.username"));
+        dbConfig.setProperty("jakarta.persistence.jdbc.password", configService.getConfigValue("db.password"));
+
+        entityManagerFactory = Persistence.createEntityManagerFactory("hibernate", dbConfig);
     }
 
     @Override
@@ -80,7 +89,7 @@ public class TourDatabaseRepository implements TourRepository {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             tour = entityManager.find(Tour.class, id);
         }
-        return Optional.of(tour);
+        return (tour == null) ? Optional.empty() : Optional.of(tour);
     }
 
     @Override
@@ -150,6 +159,15 @@ public class TourDatabaseRepository implements TourRepository {
             transaction.commit();
         }
         return updatedTourLog;
+    }
+
+    @Override
+    public Optional<TourLog> findTourLogById(UUID id) {
+        TourLog tourLog;
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            tourLog = entityManager.find(TourLog.class, id);
+        }
+        return (tourLog == null) ? Optional.empty() : Optional.of(tourLog);
     }
 
     @Override

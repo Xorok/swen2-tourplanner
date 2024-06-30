@@ -16,24 +16,32 @@ public class TourService {
         this.tourRepository = tourRepository;
     }
 
-    public List<Tour> findTourByNameContains(String term) {
-        return tourRepository.queryTours(term);
-    }
-
-    public List<Tour> findAllTours() {
-        return tourRepository.findAllTours();
-    }
-
-    public Optional<Tour> findToursById(UUID id) {
-        return tourRepository.findTourById(id);
+    public Tour saveTour(Tour tour) {
+        return tourRepository.saveTour(tour);
     }
 
     public void deleteTour(UUID id) {
         tourRepository.deleteTour(id);
     }
 
-    public Tour saveTour(Tour tour) {
-        return tourRepository.saveTour(tour);
+    public List<Tour> findAllTours() {
+        return tourRepository.findAllTours();
+    }
+
+    public Optional<Tour> findTourById(UUID id) {
+        return tourRepository.findTourById(id);
+    }
+
+    public List<Tour> findTourByNameContains(String term) {
+        return tourRepository.queryTours(term);
+    }
+
+    public TourLog saveLog(TourLog log) {
+        return tourRepository.saveTourLog(log);
+    }
+
+    public Optional<TourLog> findLogById(UUID id) {
+        return tourRepository.findTourLogById(id);
     }
 
     public List<TourLog> findAllLogsByTourId(UUID id) {

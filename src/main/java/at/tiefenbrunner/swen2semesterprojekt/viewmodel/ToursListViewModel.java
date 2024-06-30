@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import java.util.List;
 import java.util.UUID;
 
-public class TourListViewModel {
+public class ToursListViewModel {
 
     private final Publisher publisher;
     private final TourService model;
@@ -21,7 +21,7 @@ public class TourListViewModel {
     private final ObservableList<String> tourNames = FXCollections.observableArrayList();
     private final IntegerProperty selectedTourIndex = new SimpleIntegerProperty();
 
-    public TourListViewModel(Publisher publisher, TourService model) {
+    public ToursListViewModel(Publisher publisher, TourService model) {
         this.publisher = publisher;
         this.model = model;
 

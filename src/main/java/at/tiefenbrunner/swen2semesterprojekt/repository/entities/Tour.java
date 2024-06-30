@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -44,4 +45,7 @@ public class Tour {
 
     @Column(name = "t_route_img", nullable = true)
     private String routeMapImg;
+
+    @OneToMany(mappedBy = "tour", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
+    private List<TourLog> tourLogs;
 }

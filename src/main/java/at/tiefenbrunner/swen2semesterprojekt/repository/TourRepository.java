@@ -21,5 +21,7 @@ public interface TourRepository {
 
     TourLog saveTourLog(TourLog entity);
 
+    Optional<TourLog> findTourLogById(UUID id);
+
     List<TourLog> findTourLogsByTourId(UUID id);
 }

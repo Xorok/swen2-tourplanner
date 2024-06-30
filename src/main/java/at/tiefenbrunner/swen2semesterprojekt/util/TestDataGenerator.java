@@ -28,7 +28,8 @@ public class TestDataGenerator {
                 TourType.HIKE,
                 5016,
                 Duration.ofMinutes(90),
-                RES_SUBPATH + "map-placeholder/map-placeholder1.jpg"
+                RES_SUBPATH + "map-placeholder/map-placeholder1.jpg",
+                null
         );
         Tour tour2 = new Tour(
                 null,
@@ -39,7 +40,8 @@ public class TestDataGenerator {
                 TourType.BIKE,
                 1200,
                 Duration.ofMinutes(530),
-                RES_SUBPATH + "map-placeholder/map-placeholder2.jpg"
+                RES_SUBPATH + "map-placeholder/map-placeholder2.jpg",
+                null
         );
         Tour tour3 = new Tour(
                 null,
@@ -50,7 +52,8 @@ public class TestDataGenerator {
                 TourType.RUNNING,
                 18530,
                 Duration.ofMinutes(300),
-                RES_SUBPATH + "map-placeholder/map-placeholder3.jpg"
+                RES_SUBPATH + "map-placeholder/map-placeholder3.jpg",
+                null
         );
         tourRepository.saveTour(tour1);
         tourRepository.saveTour(tour2);
