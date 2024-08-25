@@ -5,10 +5,7 @@ import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
 import at.tiefenbrunner.swen2semesterprojekt.service.ConfigService;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
@@ -93,43 +90,47 @@ public class TourDatabaseRepository implements TourRepository {
     }
 
     @Override
-    public List<Tour> queryTours(String searchTerm) {
-        CriteriaBuilder builder = entityManagerFactory.getCriteriaBuilder();
-        CriteriaQuery<Tour> query = builder.createQuery(Tour.class);
-        Root<Tour> root = query.from(Tour.class);
+    public List<Tour> fullTextTourSearch(String searchTerm) {
+        // Get the CriteriaBuilder and CriteriaQuery
+        CriteriaBuilder cb = entityManagerFactory.getCriteriaBuilder();
+        CriteriaQuery<Tour> cq = cb.createQuery(Tour.class);
 
-        searchTerm = searchTerm.toLowerCase();
+        // Define the root for Tour
+        Root<Tour> tour = cq.from(Tour.class);
 
-        Predicate termPredicate =
-                builder.or(
-                        builder.like(
-                                builder.lower(root.get("name")), "%" + searchTerm + "%"
-                        ),
-                        builder.like(
-                                builder.lower(root.get("description")), "%" + searchTerm + "%"
-                        ),
-                        builder.like(
-                                builder.lower(root.get("from")), "%" + searchTerm + "%"
-                        ),
-                        builder.like(
-                                builder.lower(root.get("to")), "%" + searchTerm + "%"
-                        ),
-                        builder.like(
-                                builder.lower(root.get("tourType")), "%" + searchTerm + "%" // TODO: Add converted localization to search in future
-                        ),
-                        builder.equal(
-                                root.get("distanceM").as(String.class), searchTerm
-                        ),
-                        builder.equal(
-                                root.get("estimatedTime").as(String.class), searchTerm // TODO: Check how this works
-                        )
-                );
-        query.where(termPredicate);
+        // Join with TourLog (LEFT JOIN)
+        Join<Tour, TourLog> tourLog = tour.join("tourLogs", JoinType.LEFT);
 
-        // TODO: Add logs search
+        // Define lowercase search term
+        String searchTermLc = searchTerm.toLowerCase();
+        // Define search term with wildcards
+        String wildcardSearchTerm = "%" + searchTermLc + "%";
+
+        // Create predicates for the Tour fields
+        Predicate p1 = cb.like(cb.lower(tour.get("name")), wildcardSearchTerm);
+        Predicate p2 = cb.like(cb.lower(tour.get("description")), wildcardSearchTerm);
+        Predicate p3 = cb.like(cb.lower(tour.get("from")), wildcardSearchTerm);
+        Predicate p4 = cb.like(cb.lower(tour.get("to")), wildcardSearchTerm);
+        Predicate p5 = cb.like(cb.lower(tour.get("tourType")), wildcardSearchTerm); // TODO: Add converted localization to search in future
+        Predicate p6 = cb.equal(tour.get("distanceM").as(String.class), searchTermLc);
+        Predicate p7 = cb.equal(tour.get("estimatedTime").as(String.class), searchTermLc); // TODO: Check how this works
+
+        // Create predicates for the TourLog fields
+        Predicate p8 = cb.like(tourLog.get("dateTime").as(String.class), wildcardSearchTerm); // TODO: Check how this works
+        Predicate p9 = cb.like(cb.lower(tourLog.get("comment")), wildcardSearchTerm);
+        Predicate p10 = cb.equal(tourLog.get("totalDistanceM").as(String.class), searchTermLc);
+        Predicate p11 = cb.equal(tourLog.get("totalTime").as(String.class), searchTermLc); // TODO: Check how this works
+        Predicate p12 = cb.like(cb.lower(tourLog.get("difficulty")), wildcardSearchTerm); // TODO: Add converted localization to search in future
+        Predicate p13 = cb.equal(tourLog.get("rating").as(String.class), searchTermLc);
+
+        // Combine all predicates using OR
+        Predicate finalPredicate = cb.or(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13);
+
+        // Set the WHERE clause
+        cq.where(finalPredicate);
 
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            return entityManager.createQuery(query).getResultList();
+            return entityManager.createQuery(cq).getResultList();
         } catch (NoResultException e) {
             return List.of();
         }

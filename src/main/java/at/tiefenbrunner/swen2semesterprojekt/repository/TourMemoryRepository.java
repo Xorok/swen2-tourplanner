@@ -3,12 +3,16 @@ package at.tiefenbrunner.swen2semesterprojekt.repository;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // TODO
 public class TourMemoryRepository implements TourRepository {
@@ -62,16 +66,33 @@ public class TourMemoryRepository implements TourRepository {
     }
 
     @Override
-    public List<Tour> queryTours(String searchTerm) {
-        return tours.stream() // TODO: Add locale to toLowerCase methods
-                .filter(tour -> tour.getName().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                        tour.getDescription().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                        tour.getFrom().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                        tour.getTo().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                        tour.getTourType().toString().toLowerCase().contains(searchTerm.toLowerCase()) || // TODO: Future localization
-                        tour.getDistanceM().toString().contains(searchTerm.toLowerCase()) ||
-                        String.valueOf(tour.getEstimatedTime().toMinutes()).contains(searchTerm.toLowerCase()))
-                .collect(Collectors.toList());
+    public List<Tour> fullTextTourSearch(String searchTerm) {
+        String searchTermLc = searchTerm.toLowerCase();
+
+        Stream<Tour> tourStream = tours.stream() // TODO: Add locale to toLowerCase methods
+                .filter(tour -> tour.getName().toLowerCase().contains(searchTermLc) ||
+                        tour.getDescription().toLowerCase().contains(searchTermLc) ||
+                        tour.getFrom().toLowerCase().contains(searchTermLc) ||
+                        tour.getTo().toLowerCase().contains(searchTermLc) ||
+                        tour.getTourType().toString().toLowerCase().contains(searchTermLc) || // TODO: Future localization
+                        tour.getDistanceM().toString().contains(searchTermLc) ||
+                        String.valueOf(tour.getEstimatedTime().toMinutes()).contains(searchTermLc)
+                );
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT)
+                .withZone(ZoneId.systemDefault());
+
+        Stream<Tour> logStream = tourLogs.stream() // TODO: Add locale to toLowerCase methods
+                .filter(log -> dateTimeFormatter.format(log.getDateTime()).contains(searchTermLc) ||
+                        log.getComment().toLowerCase().contains(searchTermLc) ||
+                        log.getTotalDistanceM().toString().contains(searchTermLc) ||
+                        String.format("%d %d %d", log.getTotalTime().toDaysPart(), log.getTotalTime().toHoursPart(), log.getTotalTime().toMinutesPart()).contains(searchTermLc) ||
+                        log.getDifficulty().toString().toLowerCase().contains(searchTermLc) || // TODO: Future localization
+                        log.getRating().toString().contains(searchTermLc))
+                .map(TourLog::getTour);
+
+
+        return Stream.concat(tourStream, logStream).distinct().collect(Collectors.toList());
     }
 
     @Override

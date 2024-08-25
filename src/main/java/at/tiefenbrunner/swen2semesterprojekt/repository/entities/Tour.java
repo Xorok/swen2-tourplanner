@@ -47,5 +47,5 @@ public class Tour {
     private String routeMapImg;
 
     @OneToMany(mappedBy = "tour", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
-    private List<TourLog> tourLogs;
+    private List<TourLog> tourLogs; // TODO: Not fully implemented in TourMemoryRepository
 }

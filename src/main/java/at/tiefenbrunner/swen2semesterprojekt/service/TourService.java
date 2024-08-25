@@ -33,7 +33,7 @@ public class TourService {
     }
 
     public List<Tour> findTours(String term) {
-        return tourRepository.queryTours(term);
+        return tourRepository.fullTextTourSearch(term);
     }
 
     public TourLog saveLog(TourLog log) {
