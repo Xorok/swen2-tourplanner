@@ -162,6 +162,17 @@ public class TourDatabaseRepository implements TourRepository {
     }
 
     @Override
+    public void deleteTourLog(UUID id) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            TourLog tourLog = entityManager.find(TourLog.class, id);
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.remove(tourLog);
+            transaction.commit();
+        }
+    }
+
+    @Override
     public Optional<TourLog> findTourLogById(UUID id) {
         TourLog tourLog;
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {

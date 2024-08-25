@@ -1,39 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--suppress XmlUnresolvedReference -->
-<?import javafx.scene.control.cell.*?>
+
 <?import javafx.scene.control.*?>
-<TableView xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView"
-           fx:id="logsTable" prefWidth="600">
-    <columns>
-        <TableColumn fx:id="dateTime" text="Timestamp" prefWidth="${logsTable.width*0.1}">
-            <cellValueFactory>
-                <PropertyValueFactory property="dateTime"/>
-            </cellValueFactory>
-        </TableColumn>
-        <TableColumn fx:id="comment" text="Comment" prefWidth="${logsTable.width*0.4}">
-            <cellValueFactory>
-                <PropertyValueFactory property="comment"/>
-            </cellValueFactory>
-        </TableColumn>
-        <TableColumn fx:id="tourDifficulty" text="Difficulty" prefWidth="${logsTable.width*0.2}">
-            <cellValueFactory>
-                <PropertyValueFactory property="difficulty"/>
-            </cellValueFactory>
-        </TableColumn>
-        <TableColumn fx:id="distance" text="Total Distance (m)" prefWidth="${logsTable.width*0.1}">
-            <cellValueFactory>
-                <PropertyValueFactory property="totalDistanceM"/>
-            </cellValueFactory>
-        </TableColumn>
-        <TableColumn fx:id="totalTime" text="Total Time (min)" prefWidth="${logsTable.width*0.1}">
-            <cellValueFactory>
-                <PropertyValueFactory property="totalTime"/>
-            </cellValueFactory>
-        </TableColumn>
-        <TableColumn fx:id="rating" text="Rating (1-100)" prefWidth="${logsTable.width*0.1}">
-            <cellValueFactory>
-                <PropertyValueFactory property="rating"/>
-            </cellValueFactory>
-        </TableColumn>
-    </columns>
-</TableView>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox prefWidth="600" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView">
+    <TableView fx:id="logsTable">
+        <columns>
+            <TableColumn fx:id="dateTime" prefWidth="${logsTable.width*0.1}" text="Timestamp">
+                <cellValueFactory>
+                    <PropertyValueFactory property="dateTime"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="comment" prefWidth="${logsTable.width*0.4}" text="Comment">
+                <cellValueFactory>
+                    <PropertyValueFactory property="comment"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="tourDifficulty" prefWidth="${logsTable.width*0.2}" text="Difficulty">
+                <cellValueFactory>
+                    <PropertyValueFactory property="difficulty"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="distance" prefWidth="${logsTable.width*0.1}" text="Total Distance (m)">
+                <cellValueFactory>
+                    <PropertyValueFactory property="totalDistanceM"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="totalTime" prefWidth="${logsTable.width*0.1}" text="Total Time (min)">
+                <cellValueFactory>
+                    <PropertyValueFactory property="totalTime"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="rating" prefWidth="${logsTable.width*0.1}" text="Rating (1-100)">
+                <cellValueFactory>
+                    <PropertyValueFactory property="rating"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <ButtonBar fx:id="buttonBar">
+        <buttons>
+            <Button onAction="#onDelete" text="-"/>
+            <Button onAction="#onAddNew" text="+"/>
+        </buttons>
+    </ButtonBar>
+</VBox>

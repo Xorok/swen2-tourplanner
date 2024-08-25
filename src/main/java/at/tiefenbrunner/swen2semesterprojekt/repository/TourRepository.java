@@ -21,6 +21,8 @@ public interface TourRepository {
 
     TourLog saveTourLog(TourLog entity);
 
+    void deleteTourLog(UUID id);
+
     Optional<TourLog> findTourLogById(UUID id);
 
     List<TourLog> findTourLogsByTourId(UUID id);

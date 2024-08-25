@@ -52,9 +52,9 @@ public class TourDetailsViewModel {
 
     private void setupEvents() {
         // on search event, update terms in list
-        publisher.subscribe(Event.TOUR_LIST_TOUR_SELECTED, this::showTour);
-        publisher.subscribe(Event.TOUR_LIST_ADD_NEW_TOUR, (empty) -> resetData());
-        publisher.subscribe(Event.TOUR_LIST_DELETE_TOUR, (delId) -> {
+        publisher.subscribe(Event.TOUR_LIST_SELECTED_TOUR, this::showTour);
+        publisher.subscribe(Event.TOUR_LIST_CREATE_TOUR, (empty) -> resetData());
+        publisher.subscribe(Event.TOUR_LIST_DELETED_TOUR, (delId) -> {
             if (isCurrentTour(delId)) {
                 resetData();
             }
@@ -100,7 +100,7 @@ public class TourDetailsViewModel {
             tourModel.transferDataToTour(tour); // Transfer changes from model to Tour instance
             Tour savedTour = model.saveTour(tour);
             publisher.publish(Event.SEARCH_TERM_SEARCHED, ""); // Refresh results view by showing all
-            publisher.publish(Event.TOUR_LIST_TOUR_SELECTED, savedTour.getId().toString()); // Select newly added tour entry
+            publisher.publish(Event.TOUR_LIST_SELECTED_TOUR, savedTour.getId().toString()); // Select newly added tour entry
         } catch (InvalidTypeException e) {
             // TODO: Define more errors in tourModel
             log.error(e.getStackTrace());

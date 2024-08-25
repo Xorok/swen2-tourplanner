@@ -56,7 +56,7 @@ class SearchBarViewModelTest {
     public void should_insertSearchTerm_when_searchTermSelectedEvent() {
         assertEquals("", viewModel.getSearchText());
 
-        publisher.publish(Event.TOUR_LIST_TOUR_SELECTED, "ff9ef350-3ff6-4391-9758-b81fa7f57095");
+        publisher.publish(Event.TOUR_LIST_SELECTED_TOUR, "ff9ef350-3ff6-4391-9758-b81fa7f57095");
 
         assertEquals("Bike Trail - Saalach Valley", viewModel.getSearchText());
     }

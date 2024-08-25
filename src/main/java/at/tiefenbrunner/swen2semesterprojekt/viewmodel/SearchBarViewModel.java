@@ -40,7 +40,7 @@ public class SearchBarViewModel {
 
     private void setupEvents() {
         // on search term selected event, set the selected term as current search term
-        publisher.subscribe(Event.TOUR_LIST_TOUR_SELECTED, this::showName);
+        publisher.subscribe(Event.TOUR_LIST_SELECTED_TOUR, this::showName);
     }
 
     private void showName(String uuidStr) {

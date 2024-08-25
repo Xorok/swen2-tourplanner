@@ -32,12 +32,16 @@ public class TourService {
         return tourRepository.findTourById(id);
     }
 
-    public List<Tour> findTourByNameContains(String term) {
+    public List<Tour> findTours(String term) {
         return tourRepository.queryTours(term);
     }
 
     public TourLog saveLog(TourLog log) {
         return tourRepository.saveTourLog(log);
+    }
+
+    public void deleteLog(UUID id) {
+        tourRepository.deleteTourLog(id);
     }
 
     public Optional<TourLog> findLogById(UUID id) {

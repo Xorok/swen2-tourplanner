@@ -99,6 +99,11 @@ public class TourMemoryRepository implements TourRepository {
     }
 
     @Override
+    public void deleteTourLog(UUID id) {
+        tourLogs.removeIf(tourLog -> tourLog.getId().equals(id));
+    }
+
+    @Override
     public Optional<TourLog> findTourLogById(UUID id) {
         return tourLogs.stream()
                 .filter(tourLog -> tourLog.getId().equals(id))

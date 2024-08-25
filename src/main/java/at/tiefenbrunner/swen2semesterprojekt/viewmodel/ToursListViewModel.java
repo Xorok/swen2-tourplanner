@@ -35,8 +35,8 @@ public class ToursListViewModel {
         );
 
         // on search event, update terms in list
-        publisher.subscribe(Event.SEARCH_TERM_SEARCHED, this::queryTours);
-        publisher.subscribe(Event.TOUR_LIST_DELETED_TOUR, (deletedTourId) -> queryTours(""));
+        publisher.subscribe(Event.SEARCH_TERM_SEARCHED, this::searchTours);
+        publisher.subscribe(Event.TOUR_LIST_DELETED_TOUR, (deletedTourId) -> searchTours(""));
     }
 
     public void selectTour() {
@@ -45,7 +45,7 @@ public class ToursListViewModel {
         }
 
         publisher.publish(
-                Event.TOUR_LIST_TOUR_SELECTED,
+                Event.TOUR_LIST_SELECTED_TOUR,
                 tours.get(selectedTourIndex.get()).getId().toString()
         );
     }
@@ -55,7 +55,7 @@ public class ToursListViewModel {
     }
 
     public void addNew() {
-        publisher.publish(Event.TOUR_LIST_ADD_NEW_TOUR, "");
+        publisher.publish(Event.TOUR_LIST_CREATE_TOUR, "");
     }
 
     public void delete() {
@@ -64,16 +64,15 @@ public class ToursListViewModel {
         }
 
         UUID idToDelete = tours.get(selectedTourIndex.get()).getId();
-        publisher.publish(Event.TOUR_LIST_DELETE_TOUR, idToDelete.toString());
         model.deleteTour(idToDelete);
         publisher.publish(Event.TOUR_LIST_DELETED_TOUR, idToDelete.toString());
     }
 
-    private void queryTours(String searchTerm) {
+    private void searchTours(String searchTerm) {
         if (searchTerm == null || searchTerm.isEmpty()) {
             showAllTours();
         } else {
-            changeTours(model.findTourByNameContains(searchTerm));
+            changeTours(model.findTours(searchTerm));
         }
     }
 

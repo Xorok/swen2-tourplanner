@@ -52,8 +52,8 @@ public class TourLogDetailsViewModel {
     }
 
     private void setupEvents() {
-        publisher.subscribe(Event.TOUR_LOGS_CREATE, this::createNewTourLog);
-        publisher.subscribe(Event.TOUR_LOGS_EDIT, this::showTourLog);
+        publisher.subscribe(Event.TOUR_LOGS_CREATE_LOG, this::createNewTourLog);
+        publisher.subscribe(Event.TOUR_LOGS_EDIT_LOG, this::showTourLog);
     }
 
     private void createNewTourLog(String tourId) {
@@ -61,7 +61,7 @@ public class TourLogDetailsViewModel {
             UUID uuid = UUID.fromString(tourId);
             Optional<Tour> tourOpt = model.findTourById(uuid);
             if (tourOpt.isEmpty()) {
-                log.error("Couldn't find selected Tour with ID {}", tourId);
+                log.error("Couldn't find selected Tour with ID {} to create a new Tour Log!", tourId);
                 // TODO: Handle invalid state
             } else {
                 resetData();
@@ -77,7 +77,7 @@ public class TourLogDetailsViewModel {
             UUID uuid = UUID.fromString(logId);
             Optional<TourLog> tourLogOpt = model.findLogById(uuid);
             if (tourLogOpt.isEmpty()) {
-                log.error("Couldn't find selected Tour Log with ID {}", logId);
+                log.error("Couldn't find selected Tour Log with ID {} to edit!", logId);
                 // TODO: Handle invalid state
             } else {
                 tourLog = tourLogOpt.get();

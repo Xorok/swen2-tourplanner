@@ -7,6 +7,7 @@ import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourLogsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -35,6 +36,8 @@ public class TourLogsView implements Initializable {
     private TableColumn<Integer, String> rating;
     @FXML
     private TableColumn<TourDifficulty, TourDifficulty> tourDifficulty;
+    @FXML
+    private ButtonBar buttonBar;
 
     public TourLogsView(TourLogsViewModel viewModel, ViewHandler viewHandler) {
         this.viewModel = viewModel;
@@ -53,22 +56,9 @@ public class TourLogsView implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                     if (row.isEmpty()) {
-                        try {
-                            viewHandler.openWindow(Constants.Windows.CREATE_LOG, null);
-                            viewModel.createTourLog();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                            // TODO: Handle exception
-                        }
+                        addNewLog();
                     } else {
-                        try {
-                            viewHandler.openWindow(Constants.Windows.EDIT_LOG, null);
-                            TourLog clickedLog = row.getItem();
-                            viewModel.editTourLog(clickedLog);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                            // TODO: Handle exception
-                        }
+                        editLog(row);
                     }
                 }
             });
@@ -78,5 +68,44 @@ public class TourLogsView implements Initializable {
 
     private void setupBindings() {
         this.logsTable.setItems(viewModel.getLogs()); // Binding through Observable List
+        this.buttonBar.disableProperty().bind(viewModel.crudDisabledProperty());
+    }
+
+    @FXML
+    private void onAddNew() {
+        addNewLog();
+    }
+
+    @FXML
+    private void onDelete() {
+        deleteLog();
+    }
+
+    private void addNewLog() {
+        try {
+            viewHandler.openWindow(Constants.Windows.CREATE_LOG, null);
+            viewModel.createTourLog();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+            // TODO: Handle exception
+        }
+    }
+
+    private void editLog(TableRow<TourLog> row) {
+        try {
+            viewHandler.openWindow(Constants.Windows.EDIT_LOG, null);
+            TourLog clickedLog = row.getItem();
+            viewModel.editTourLog(clickedLog);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+            // TODO: Handle exception
+        }
+    }
+
+    private void deleteLog() {
+        TourLog selectedLog = logsTable.getSelectionModel().getSelectedItem();
+        if (selectedLog != null) {
+            viewModel.deleteTourLog(selectedLog);
+        }
     }
 }
