@@ -1,0 +1,4 @@
+<?import javafx.scene.web.WebView?>
+<WebView xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
+         fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.MapView" fx:id="webView">
+</WebView>

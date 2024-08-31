@@ -3,7 +3,8 @@ package at.tiefenbrunner.swen2semesterprojekt.util;
 public class Constants {
     public static final String CONFIG_FILE_PATH = "config.properties";
     public static final String RES_SUBPATH = "/at/tiefenbrunner/swen2semesterprojekt/";
-    public static final String RES_ASSETS_SUBPATH = "/at/tiefenbrunner/swen2semesterprojekt/assets/";
+    public static final String RES_ASSETS_SUBPATH = RES_SUBPATH + "assets/";
+    public static final String RES_WEB_SUBPATH = RES_SUBPATH + "web/";
     public static final String RES_BASENAME_GUI_STRINGS = "at.tiefenbrunner.swen2semesterprojekt.gui_strings";
     public static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm";
 

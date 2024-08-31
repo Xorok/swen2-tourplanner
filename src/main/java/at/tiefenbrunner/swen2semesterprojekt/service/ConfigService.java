@@ -27,12 +27,16 @@ public class ConfigService {
         checkForConfig("db.url");
         checkForConfig("db.username");
         checkForConfig("db.password");
+        checkForConfig("ors.api-key");
 
         if (properties.getProperty("db.username").equals("<DB-USERNAME HERE>"))
             throw new IllegalArgumentException("Missing configuration value for key: " + "db.username");
 
         if (properties.getProperty("db.password").equals("<DB-PASSWORD HERE>"))
             throw new IllegalArgumentException("Missing configuration value for key: " + "db.password");
+
+        if (properties.getProperty("ors.api-key").equals("<OPENROUTESERVICE API-KEY HERE>"))
+            throw new IllegalArgumentException("Missing configuration value for key: " + "ors.api-key");
     }
 
     private void checkForConfig(String key) {

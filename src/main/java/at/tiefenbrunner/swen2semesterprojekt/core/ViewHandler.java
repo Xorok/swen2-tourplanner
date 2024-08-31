@@ -48,7 +48,7 @@ public class ViewHandler {
         Scene scene = new Scene(view);
         Stage window = stage != null ? stage : new Stage();
         window.setTitle(viewToOpen.windowTitle);
-        window.getIcons().add(new Image(getClass().getResourceAsStream(RES_ASSETS_SUBPATH + "map.png")));
+        window.getIcons().add(new Image(getClass().getResourceAsStream(RES_ASSETS_SUBPATH + "app-icon.png")));
         window.setScene(scene);
         window.show();
     }

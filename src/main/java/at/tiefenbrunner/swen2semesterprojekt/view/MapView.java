@@ -1,0 +1,45 @@
+package at.tiefenbrunner.swen2semesterprojekt.view;
+
+import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.MapViewModel;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MapView implements Initializable {
+
+    @FXML
+    private WebView webView;
+    private WebEngine webEngine;
+
+    private final MapViewModel viewModel;
+
+    public MapView(MapViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupWebView();
+        setupBindings();
+    }
+
+    private void setupWebView() {
+        webEngine = webView.getEngine();
+        webEngine.setOnError(System.out::println);
+        webEngine.load(getClass().getResource(Constants.RES_WEB_SUBPATH + "map.html").toExternalForm());
+    }
+
+    private void setupBindings() {
+        // Bind the script execution
+        viewModel.scriptToExecuteProperty().addListener((obs, oldScript, newScript) -> {
+            if (newScript != null && !newScript.isEmpty()) {
+                webEngine.executeScript(newScript);
+            }
+        });
+    }
+}

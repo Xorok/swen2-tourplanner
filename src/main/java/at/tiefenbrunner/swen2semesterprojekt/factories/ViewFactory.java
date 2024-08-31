@@ -37,6 +37,9 @@ public class ViewFactory {
         if (viewClass == TourDetailsView.class) {
             return new TourDetailsView(viewModelFactory.getTourDetailsViewModel());
         }
+        if (viewClass == MapView.class) {
+            return new MapView(viewModelFactory.getMapViewModel());
+        }
         if (viewClass == TourLogsView.class) {
             return new TourLogsView(viewModelFactory.getTourLogsViewModel(), viewHandler);
         }

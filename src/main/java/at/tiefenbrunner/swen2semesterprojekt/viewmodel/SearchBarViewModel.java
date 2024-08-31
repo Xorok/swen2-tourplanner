@@ -7,9 +7,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import lombok.extern.log4j.Log4j2;
 
-@Log4j2
 public class SearchBarViewModel {
     private final Publisher publisher;
     private final TourService model;

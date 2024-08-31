@@ -8,7 +8,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
-import static at.tiefenbrunner.swen2semesterprojekt.util.Constants.RES_SUBPATH;
+import static at.tiefenbrunner.swen2semesterprojekt.util.Constants.RES_ASSETS_SUBPATH;
 
 public class TestDataGenerator {
     public static void setupTestData(TourRepository tourRepository) {
@@ -25,7 +25,7 @@ public class TestDataGenerator {
                 TourType.HIKE,
                 5016,
                 Duration.ofMinutes(90),
-                RES_SUBPATH + "map-placeholder/map-placeholder1.jpg",
+                RES_ASSETS_SUBPATH + "map-placeholder.jpg",
                 null
         );
         Tour tour2 = new Tour(
@@ -37,7 +37,7 @@ public class TestDataGenerator {
                 TourType.BIKE,
                 1200,
                 Duration.ofMinutes(530),
-                RES_SUBPATH + "map-placeholder/map-placeholder2.jpg",
+                RES_ASSETS_SUBPATH + "map-placeholder.jpg",
                 null
         );
         Tour tour3 = new Tour(
@@ -49,7 +49,7 @@ public class TestDataGenerator {
                 TourType.RUNNING,
                 18530,
                 Duration.ofMinutes(300),
-                RES_SUBPATH + "map-placeholder/map-placeholder3.jpg",
+                RES_ASSETS_SUBPATH + "map-placeholder.jpg",
                 null
         );
         tourRepository.saveTour(tour1);

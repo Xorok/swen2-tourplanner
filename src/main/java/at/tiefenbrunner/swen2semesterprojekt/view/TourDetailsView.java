@@ -5,14 +5,11 @@ import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourDetailsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TourDetailsView implements Initializable {
-    @FXML
-    private ImageView mapImage;
     @FXML
     private TextField name;
     @FXML
@@ -51,7 +48,6 @@ public class TourDetailsView implements Initializable {
     }
 
     private void setupBindings() {
-        mapImage.imageProperty().bind(viewModel.getTourModel().mapImgProperty());
         name.textProperty().bindBidirectional(viewModel.getTourModel().nameProperty());
         description.textProperty().bindBidirectional(viewModel.getTourModel().descriptionProperty());
         fromX.textProperty().bindBidirectional(viewModel.getTourModel().fromXProperty(), viewModel.getCoordinateFormat());

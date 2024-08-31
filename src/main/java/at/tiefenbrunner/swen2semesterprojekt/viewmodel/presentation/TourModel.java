@@ -10,11 +10,11 @@ import javafx.scene.image.Image;
 
 import java.time.Duration;
 
-import static at.tiefenbrunner.swen2semesterprojekt.util.Constants.RES_SUBPATH;
+import static at.tiefenbrunner.swen2semesterprojekt.util.Constants.RES_ASSETS_SUBPATH;
 
 public class TourModel {
 
-    private final Image mapImgPlaceholder = new Image(RES_SUBPATH + "map-placeholder/map-placeholder.jpg", true);
+    private final Image mapImgPlaceholder = new Image(getClass().getResourceAsStream(RES_ASSETS_SUBPATH + "map-placeholder.jpg"));
 
     private ObjectProperty<Image> mapImg = new SimpleObjectProperty<>(mapImgPlaceholder);
     private StringProperty name = new SimpleStringProperty();

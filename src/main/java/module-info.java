@@ -9,6 +9,8 @@ module at.tiefenbrunner.swen2semesterprojekt {
     requires org.apache.logging.log4j;
     requires jdk.jdi;
     requires jakarta.persistence;
+    requires javafx.web;
+    requires org.json;
 
     opens at.tiefenbrunner.swen2semesterprojekt to javafx.fxml;
     opens at.tiefenbrunner.swen2semesterprojekt.view to javafx.fxml;
