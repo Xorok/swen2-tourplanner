@@ -5,5 +5,5 @@
       fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.SearchBarView">
     <Button fx:id="showAllButton" onAction="#onShowAll" text="Show All"/>
     <TextField fx:id="searchField" onAction="#onSearch" HBox.hgrow="ALWAYS"/>
-    <Button fx:id="searchButton" onAction="#onSearch" text="%search-button-text"/>
+    <Button fx:id="searchButton" onAction="#onSearch" text="Search &#x1F50E;"/>
 </HBox>

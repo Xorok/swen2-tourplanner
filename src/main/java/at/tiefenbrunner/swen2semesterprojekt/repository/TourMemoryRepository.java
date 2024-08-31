@@ -72,8 +72,8 @@ public class TourMemoryRepository implements TourRepository {
         Stream<Tour> tourStream = tours.stream() // TODO: Add locale to toLowerCase methods
                 .filter(tour -> tour.getName().toLowerCase().contains(searchTermLc) ||
                         tour.getDescription().toLowerCase().contains(searchTermLc) ||
-                        tour.getFrom().toLowerCase().contains(searchTermLc) ||
-                        tour.getTo().toLowerCase().contains(searchTermLc) ||
+                        tour.getFrom().toString().contains(searchTermLc) ||
+                        tour.getTo().toString().contains(searchTermLc) ||
                         tour.getTourType().toString().toLowerCase().contains(searchTermLc) || // TODO: Future localization
                         tour.getDistanceM().toString().contains(searchTermLc) ||
                         String.valueOf(tour.getEstimatedTime().toMinutes()).contains(searchTermLc)

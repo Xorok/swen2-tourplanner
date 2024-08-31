@@ -18,9 +18,13 @@ public class TourDetailsView implements Initializable {
     @FXML
     private TextArea description;
     @FXML
-    private TextField from;
+    private TextField fromX;
     @FXML
-    private TextField to;
+    private TextField fromY;
+    @FXML
+    private TextField toX;
+    @FXML
+    private TextField toY;
     @FXML
     private ComboBox<TourType> type;
     @FXML
@@ -50,8 +54,10 @@ public class TourDetailsView implements Initializable {
         mapImage.imageProperty().bind(viewModel.getTourModel().mapImgProperty());
         name.textProperty().bindBidirectional(viewModel.getTourModel().nameProperty());
         description.textProperty().bindBidirectional(viewModel.getTourModel().descriptionProperty());
-        from.textProperty().bindBidirectional(viewModel.getTourModel().fromProperty());
-        to.textProperty().bindBidirectional(viewModel.getTourModel().toProperty());
+        fromX.textProperty().bindBidirectional(viewModel.getTourModel().fromXProperty(), viewModel.getCoordinateFormat());
+        fromY.textProperty().bindBidirectional(viewModel.getTourModel().fromYProperty(), viewModel.getCoordinateFormat());
+        toX.textProperty().bindBidirectional(viewModel.getTourModel().toXProperty(), viewModel.getCoordinateFormat());
+        toY.textProperty().bindBidirectional(viewModel.getTourModel().toYProperty(), viewModel.getCoordinateFormat());
         type.valueProperty().bindBidirectional(viewModel.getTourModel().tourTypeProperty());
         distance.textProperty().bind(viewModel.getTourModel().distanceMProperty().asString());
         time.textProperty().bind(viewModel.getTourModel().estimatedTimeMinProperty().asString());

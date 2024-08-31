@@ -29,10 +29,16 @@
             <Label GridPane.columnIndex="0" GridPane.rowIndex="1">Tour Description</Label>
             <TextArea GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="description"
                       prefRowCount="3"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="2">From</Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="from"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="3">To</Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="to"/>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="2">From (Lat, Long)</Label>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <TextField HBox.hgrow="ALWAYS" fx:id="fromX"/>
+                <TextField HBox.hgrow="ALWAYS" fx:id="fromY"/>
+            </HBox>
+            <Label GridPane.columnIndex="0" GridPane.rowIndex="3">To (Lat, Long)</Label>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <TextField HBox.hgrow="ALWAYS" fx:id="toX"/>
+                <TextField HBox.hgrow="ALWAYS" fx:id="toY"/>
+            </HBox>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="4">Transport Type</Label>
             <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="type"/>
             <Label GridPane.columnIndex="0" GridPane.rowIndex="5">Tour Distance (m)</Label>
@@ -40,7 +46,7 @@
             <Label GridPane.columnIndex="0" GridPane.rowIndex="6">Estimated Time (min)</Label>
             <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="time"/>
             <Button GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.halignment="RIGHT"
-                    fx:id="saveBtn" text="Save" onAction="#onSave"/>
+                    fx:id="saveBtn" text="Save &#x1F4BE;" onAction="#onSave"/>
         </GridPane>
     </ScrollPane>
 </VBox>

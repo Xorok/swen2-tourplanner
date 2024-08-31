@@ -28,7 +28,7 @@
             <Label GridPane.columnIndex="0" GridPane.rowIndex="5">Rating (1-100)</Label>
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="rating"/>
             <Button GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.halignment="RIGHT"
-                    fx:id="saveBtn" text="Save" onAction="#onSave"/>
+                    fx:id="saveBtn" text="Save &#x1F4BE;" onAction="#onSave"/>
         </GridPane>
     </ScrollPane>
 </VBox>

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox prefWidth="600" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView">
-    <TableView fx:id="logsTable">
+    <TableView fx:id="logsTable" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="dateTime" prefWidth="${logsTable.width*0.1}" text="Timestamp">
                 <cellValueFactory>
@@ -43,8 +43,8 @@
     </TableView>
     <ButtonBar fx:id="buttonBar">
         <buttons>
-            <Button onAction="#onDelete" text="-"/>
-            <Button onAction="#onAddNew" text="+"/>
+            <Button onAction="#onDelete" text="&#x2796;"/>
+            <Button onAction="#onAddNew" text="&#x2795;"/>
         </buttons>
     </ButtonBar>
 </VBox>

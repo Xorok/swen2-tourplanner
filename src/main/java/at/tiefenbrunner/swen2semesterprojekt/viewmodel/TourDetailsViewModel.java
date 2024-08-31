@@ -2,6 +2,7 @@ package at.tiefenbrunner.swen2semesterprojekt.viewmodel;
 
 import at.tiefenbrunner.swen2semesterprojekt.event.Event;
 import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Point;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation.TourModel;
@@ -11,6 +12,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.extern.log4j.Log4j2;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +26,8 @@ public class TourDetailsViewModel {
     private final TourModel tourModel;
 
     private final BooleanProperty saveDisabled = new SimpleBooleanProperty(true);
+
+    private final NumberFormat coordinateFormat = new DecimalFormat("##0.000000");
 
     public TourDetailsViewModel(Publisher publisher, TourService model) {
         this.publisher = publisher;
@@ -39,15 +44,17 @@ public class TourDetailsViewModel {
         InvalidationListener listener = observable -> saveDisabled.set(formFieldIsEmpty());
         this.tourModel.nameProperty().addListener(listener);
         this.tourModel.descriptionProperty().addListener(listener);
-        this.tourModel.fromProperty().addListener(listener);
-        this.tourModel.toProperty().addListener(listener);
+        this.tourModel.fromXProperty().addListener(listener);
+        this.tourModel.fromYProperty().addListener(listener);
+        this.tourModel.toXProperty().addListener(listener);
+        this.tourModel.toYProperty().addListener(listener);
     }
 
     private boolean formFieldIsEmpty() {
         return tourModel.getName() == null || tourModel.getName().isBlank() ||
                 tourModel.getDescription() == null || tourModel.getDescription().isBlank() ||
-                tourModel.getFrom() == null || tourModel.getFrom().isBlank() ||
-                tourModel.getTo() == null || tourModel.getTo().isBlank();
+                tourModel.getFrom() == null || tourModel.getFrom().equals(new Point()) ||
+                tourModel.getTo() == null || tourModel.getTo().equals(new Point());
     }
 
     private void setupEvents() {
@@ -89,6 +96,10 @@ public class TourDetailsViewModel {
 
     public TourModel getTourModel() {
         return tourModel;
+    }
+
+    public NumberFormat getCoordinateFormat() {
+        return coordinateFormat;
     }
 
     public void save() {

@@ -24,6 +24,7 @@ public class SearchBarViewModel {
         this.model = model;
 
         setupBindings();
+        setupEvents();
     }
 
     private void setupBindings() {
@@ -33,13 +34,16 @@ public class SearchBarViewModel {
         );
     }
 
+    private void setupEvents() {
+        publisher.subscribe(Event.SEARCH_TERM_SEARCHED, searchText::set); // TODO: Remove once more proper events are added
+    }
+
     public void search() {
         if (searchDisabled.get()) {
             return;
         }
 
         publisher.publish(Event.SEARCH_TERM_SEARCHED, searchText.get());
-        searchText.set("");
     }
 
     public void showAll() {

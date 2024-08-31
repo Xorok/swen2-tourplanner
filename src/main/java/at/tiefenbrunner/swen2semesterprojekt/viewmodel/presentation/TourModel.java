@@ -1,5 +1,6 @@
 package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Point;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
 import com.sun.jdi.InvalidTypeException;
@@ -18,8 +19,8 @@ public class TourModel {
     private ObjectProperty<Image> mapImg = new SimpleObjectProperty<>(mapImgPlaceholder);
     private StringProperty name = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
-    private StringProperty from = new SimpleStringProperty();
-    private StringProperty to = new SimpleStringProperty();
+    private PointModel from = new PointModel();
+    private PointModel to = new PointModel();
     private ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(TourType.BIKE);
     private IntegerProperty distanceM = new SimpleIntegerProperty();
     private LongProperty estimatedTimeMin = new SimpleLongProperty();
@@ -31,8 +32,8 @@ public class TourModel {
         if (model == null) {
             this.name.set("");
             this.description.set("");
-            this.from.set("");
-            this.to.set("");
+            this.from.setPoint(new Point());
+            this.to.setPoint(new Point());
             this.tourType.set(TourType.BIKE);
             this.distanceM.set(0);
             this.estimatedTimeMin.set(0);
@@ -40,8 +41,8 @@ public class TourModel {
         } else {
             this.name.set(model.getName());
             this.description.set(model.getDescription());
-            this.from.set(model.getFrom());
-            this.to.set(model.getTo());
+            this.from.setPoint(model.getFrom());
+            this.to.setPoint(model.getTo());
             this.tourType.set(model.getTourType());
             this.distanceM.set(model.getDistanceM());
             this.estimatedTimeMin.set(model.getEstimatedTime().toMinutes());
@@ -52,8 +53,8 @@ public class TourModel {
     public void transferDataToTour(Tour tour) throws InvalidTypeException {
         tour.setName(this.name.get());
         tour.setDescription(this.description.get());
-        tour.setFrom(this.from.get());
-        tour.setTo(this.to.get());
+        tour.setFrom(this.from.getPoint());
+        tour.setTo(this.to.getPoint());
         tour.setTourType(this.tourType.get());
         tour.setDistanceM(this.distanceM.get());
         tour.setEstimatedTime(Duration.ofMinutes(this.estimatedTimeMin.get()));
@@ -68,12 +69,20 @@ public class TourModel {
         return description;
     }
 
-    public final StringProperty fromProperty() {
-        return from;
+    public final DoubleProperty fromXProperty() {
+        return from.xProperty();
     }
 
-    public final StringProperty toProperty() {
-        return to;
+    public final DoubleProperty fromYProperty() {
+        return from.yProperty();
+    }
+
+    public final DoubleProperty toXProperty() {
+        return to.xProperty();
+    }
+
+    public final DoubleProperty toYProperty() {
+        return to.yProperty();
     }
 
     public final ObjectProperty<TourType> tourTypeProperty() {
@@ -108,20 +117,20 @@ public class TourModel {
         this.description.set(description);
     }
 
-    public String getFrom() {
-        return from.get();
+    public Point getFrom() {
+        return from.getPoint();
     }
 
-    public void setFrom(String from) {
-        this.from.set(from);
+    public void setFrom(Point from) {
+        this.from.setPoint(from);
     }
 
-    public String getTo() {
-        return to.get();
+    public Point getTo() {
+        return to.getPoint();
     }
 
-    public void setTo(String to) {
-        this.to.set(to);
+    public void setTo(Point to) {
+        this.to.setPoint(to);
     }
 
     public TourType getTourType() {

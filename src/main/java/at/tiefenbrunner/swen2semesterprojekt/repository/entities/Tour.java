@@ -27,11 +27,19 @@ public class Tour {
     @Column(name = "t_desc", nullable = false)
     private String description;
 
-    @Column(name = "t_from", nullable = false)
-    private String from; // Point2D.Double?
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "x", column = @Column(name = "t_from_lat", nullable = false)),
+            @AttributeOverride(name = "y", column = @Column(name = "t_from_long", nullable = false))
+    })
+    private Point from;
 
-    @Column(name = "t_to", nullable = false)
-    private String to;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "x", column = @Column(name = "t_to_lat", nullable = false)),
+            @AttributeOverride(name = "y", column = @Column(name = "t_to_long", nullable = false))
+    })
+    private Point to;
 
     @Column(name = "t_type", nullable = false)
     @Enumerated(EnumType.STRING)

@@ -1,10 +1,7 @@
 package at.tiefenbrunner.swen2semesterprojekt.util;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.TourRepository;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourDifficulty;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.*;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -23,8 +20,8 @@ public class TestDataGenerator {
                 null,
                 "Mugel mountain (Styria)",
                 "This is an easy hike up Mugel mountain.",
-                "Winter parking lot Niklasdorf, Styria, Austria", // new Point2D.Double(16.229345, 48.007896)?
-                "Mugel mountain, Styria, Austria",
+                new Point(15.179389, 47.381082),
+                new Point(15.187986, 47.358484),
                 TourType.HIKE,
                 5016,
                 Duration.ofMinutes(90),
@@ -35,8 +32,8 @@ public class TestDataGenerator {
                 null,
                 "Bike Trail - Saalach Valley",
                 "This is a long bike trail.",
-                "Bruck, Salzburg",
-                "Salzburg Hauptbahnhof (S-Bahn)",
+                new Point(15.179389, 47.381082),
+                new Point(15.187986, 47.358484),
                 TourType.BIKE,
                 1200,
                 Duration.ofMinutes(530),
@@ -47,8 +44,8 @@ public class TestDataGenerator {
                 null,
                 "Lahngang lake Trail running route",
                 "This is a trail with scenic views.",
-                "Parking lot Gößl, Salzburg",
-                "Drausengatterl",
+                new Point(15.179389, 47.381082),
+                new Point(15.187986, 47.358484),
                 TourType.RUNNING,
                 18530,
                 Duration.ofMinutes(300),

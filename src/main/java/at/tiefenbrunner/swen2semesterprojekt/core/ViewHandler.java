@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class ViewHandler {
         Scene scene = new Scene(view);
         Stage window = stage != null ? stage : new Stage();
         window.setTitle(viewToOpen.windowTitle);
+        window.getIcons().add(new Image(getClass().getResourceAsStream(RES_ASSETS_SUBPATH + "map.png")));
         window.setScene(scene);
         window.show();
     }

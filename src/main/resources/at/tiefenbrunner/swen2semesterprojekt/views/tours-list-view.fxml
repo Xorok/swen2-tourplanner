@@ -6,8 +6,8 @@
     <ListView fx:id="toursList" VBox.vgrow="ALWAYS"/>
     <ButtonBar>
         <buttons>
-            <Button text="-" ButtonBar.buttonData="LEFT" onAction="#onDelete"/>
-            <Button text="+" ButtonBar.buttonData="RIGHT" onAction="#onAddNew"/>
+            <Button text="&#x2796;" ButtonBar.buttonData="LEFT" onAction="#onDelete"/>
+            <Button text="&#x2795;" ButtonBar.buttonData="RIGHT" onAction="#onAddNew"/>
         </buttons>
     </ButtonBar>
 </VBox>
