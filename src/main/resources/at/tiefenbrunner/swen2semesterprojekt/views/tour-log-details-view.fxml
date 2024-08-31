@@ -11,7 +11,7 @@
             </padding>
             <columnConstraints>
                 <ColumnConstraints minWidth="-Infinity"/>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
             </columnConstraints>
 
             <Label GridPane.columnIndex="0" GridPane.rowIndex="0">Timestamp</Label>

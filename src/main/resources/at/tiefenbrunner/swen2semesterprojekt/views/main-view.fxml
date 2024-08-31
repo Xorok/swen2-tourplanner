@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
             fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.MainView">
@@ -10,11 +11,13 @@
     </top>
 
     <left>
-        <fx:include source="tours-list-view.fxml"/>
     </left>
 
     <center>
-        <fx:include source="tour-view.fxml"/>
+        <SplitPane dividerPositions="0.2f">
+            <fx:include source="tours-list-view.fxml"/>
+            <fx:include source="tour-view.fxml"/>
+        </SplitPane>
     </center>
 
     <right>

@@ -2,7 +2,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <SplitPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourDetailsView">
+           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourDetailsView"
+           dividerPositions="0.5f">
     <StackPane>
         <fx:include source="map-view.fxml"/>
     </StackPane>
@@ -13,7 +14,7 @@
             </padding>
             <columnConstraints>
                 <ColumnConstraints minWidth="-Infinity"/>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="-Infinity"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
             </columnConstraints>
 
             <Label GridPane.columnIndex="0" GridPane.rowIndex="0">Name</Label>

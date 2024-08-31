@@ -47,7 +47,7 @@ public class TourLogDetailsView implements Initializable {
     }
 
     private void setupBindings() {
-        dateTime.textProperty().bind(viewModel.getTourLogModel().dateTimeProperty().asString());
+        dateTime.textProperty().bind(viewModel.getTourLogModel().dateTimeProperty());
         comment.textProperty().bindBidirectional(viewModel.getTourLogModel().commentProperty());
         distance.textProperty().bindBidirectional(viewModel.getTourLogModel().distanceProperty(), new NumberStringConverter());
         totalTime.textProperty().bindBidirectional(viewModel.getTourLogModel().totalTimeProperty(), new NumberStringConverter());

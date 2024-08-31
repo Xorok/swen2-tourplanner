@@ -4,6 +4,8 @@ import at.tiefenbrunner.swen2semesterprojekt.core.ViewHandler;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourDifficulty;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
 import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
+import at.tiefenbrunner.swen2semesterprojekt.util.DurationFormat;
+import at.tiefenbrunner.swen2semesterprojekt.view.util.ColumnFormatter;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourLogsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,12 +17,17 @@ import javafx.scene.input.MouseButton;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.Format;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class TourLogsView implements Initializable {
     private final TourLogsViewModel viewModel;
     private final ViewHandler viewHandler;
+    private final Format dateTimeFormat = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT).withZone(ZoneId.systemDefault()).toFormat();
+    private final Format durationFormat = new DurationFormat();
 
     @FXML
     private TableView<TourLog> logsTable;
@@ -64,6 +71,9 @@ public class TourLogsView implements Initializable {
             });
             return row;
         });
+
+        dateTime.setCellFactory(new ColumnFormatter<>(dateTimeFormat));
+        totalTime.setCellFactory(new ColumnFormatter<>(durationFormat));
     }
 
     private void setupBindings() {

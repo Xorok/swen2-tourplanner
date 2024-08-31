@@ -2,15 +2,21 @@ package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourDifficulty;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import jakarta.annotation.Nullable;
 import javafx.beans.property.*;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class TourLogModel {
 
-    private ObjectProperty<Instant> dateTime = new SimpleObjectProperty<>(Instant.now());
+    DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern(Constants.DATE_TIME_FORMAT)
+            .withZone(ZoneId.systemDefault());
+    private StringProperty dateTime = new SimpleStringProperty();
     private StringProperty comment = new SimpleStringProperty();
     private IntegerProperty distance = new SimpleIntegerProperty();
     private LongProperty totalTime = new SimpleLongProperty();
@@ -21,7 +27,7 @@ public class TourLogModel {
     }
 
     public void setModel(@Nullable TourLog model) {
-        this.dateTime.set(Instant.now());
+        this.dateTime.set(formatter.format(Instant.now()));
 
         if (model == null) {
             this.comment.set("");
@@ -39,7 +45,7 @@ public class TourLogModel {
     }
 
     public void transferDataToTourLog(TourLog tourLog) {
-        tourLog.setDateTime(this.dateTime.get());
+        tourLog.setDateTime(Instant.now());
         tourLog.setComment(this.comment.get());
         tourLog.setTotalDistanceM(this.distance.get());
         tourLog.setTotalTime(Duration.ofMinutes(this.totalTime.get()));
@@ -48,10 +54,10 @@ public class TourLogModel {
     }
 
     public Instant getDateTime() {
-        return dateTime.get();
+        return Instant.now();
     }
 
-    public ObjectProperty<Instant> dateTimeProperty() {
+    public StringProperty dateTimeProperty() {
         return dateTime;
     }
 

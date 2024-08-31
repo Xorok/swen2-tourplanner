@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -34,6 +35,11 @@ public class ViewHandler {
     }
 
     public void start(Stage mainStage) throws IOException {
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        mainStage.setWidth(width * 0.7);
+        mainStage.setHeight(height * 0.7);
         openWindow(Windows.MAIN, mainStage);
     }
 
