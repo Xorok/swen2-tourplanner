@@ -5,8 +5,11 @@ public class Constants {
     public static final String RES_SUBPATH = "/at/tiefenbrunner/swen2semesterprojekt/";
     public static final String RES_ASSETS_SUBPATH = RES_SUBPATH + "assets/";
     public static final String RES_WEB_SUBPATH = RES_SUBPATH + "web/";
-    public static final String RES_BASENAME_GUI_STRINGS = "at.tiefenbrunner.swen2semesterprojekt.gui_strings";
+    public static final String RES_BASENAME_GUI_STRINGS = "at.tiefenbrunner.swen2semesterprojekt.gui_strings"; // TODO: Use vars for UI
     public static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm";
+    public static final String COORDINATE_FORMAT = "##0.000000";
+    public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0";
+    public static final String MAP_IMAGES_PATH = "maps/";
 
     public enum Windows {
         MAIN("views/main-view.fxml", "Tour Planner - Main View"), // TODO: Move to gui_string resource file

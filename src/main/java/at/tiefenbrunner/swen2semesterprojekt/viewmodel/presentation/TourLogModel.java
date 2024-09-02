@@ -1,7 +1,7 @@
 package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourDifficulty;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty;
 import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import jakarta.annotation.Nullable;
 import javafx.beans.property.*;

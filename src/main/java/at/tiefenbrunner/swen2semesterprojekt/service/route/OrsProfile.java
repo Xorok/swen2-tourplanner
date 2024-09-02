@@ -1,6 +1,6 @@
 package at.tiefenbrunner.swen2semesterprojekt.service.route;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
 
 public enum OrsProfile {
     DRIVING_CAR("driving-car"),

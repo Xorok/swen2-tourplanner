@@ -1,5 +1,6 @@
 package at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,25 +22,11 @@ public class Tour {
     @Column(name = "t_id", insertable = false, updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "t_name", nullable = false)
+    @Column(name = "t_name", nullable = false, columnDefinition = "TEXT")
     private String name;
 
-    @Column(name = "t_desc", nullable = false)
+    @Column(name = "t_desc", nullable = false, columnDefinition = "TEXT")
     private String description;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "x", column = @Column(name = "t_from_lat", nullable = false)),
-            @AttributeOverride(name = "y", column = @Column(name = "t_from_long", nullable = false))
-    })
-    private Point from;
-
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "x", column = @Column(name = "t_to_lat", nullable = false)),
-            @AttributeOverride(name = "y", column = @Column(name = "t_to_long", nullable = false))
-    })
-    private Point to;
 
     @Column(name = "t_type", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -51,9 +38,10 @@ public class Tour {
     @Column(name = "t_time", nullable = true)
     private Duration estimatedTime;
 
-    @Column(name = "t_route_img", nullable = true)
-    private String routeMapImg;
-
-    @OneToMany(mappedBy = "tour", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
+    // TODO: Implement lazy fetching, get rid of FetchType.EAGER
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TourLog> tourLogs; // TODO: Not fully implemented in TourMemoryRepository
+
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TourPoint> tourPoints; // TODO: Not fully implemented in TourMemoryRepository
 }

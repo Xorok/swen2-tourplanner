@@ -6,10 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import lombok.extern.log4j.Log4j2;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Log4j2
 public class MapView implements Initializable {
 
     @FXML
@@ -30,7 +32,7 @@ public class MapView implements Initializable {
 
     private void setupWebView() {
         webEngine = webView.getEngine();
-        webEngine.setOnError(System.out::println);
+        webEngine.setOnError(log::error);
         webEngine.load(getClass().getResource(Constants.RES_WEB_SUBPATH + "map.html").toExternalForm());
     }
 

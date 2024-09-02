@@ -1,5 +1,6 @@
 package at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,14 +22,14 @@ public class TourLog {
     @Column(name = "tl_id", insertable = false, updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tl_t_tour", nullable = false)
     private Tour tour;
 
     @Column(name = "tl_timestamp", nullable = false)
     private Instant dateTime;
 
-    @Column(name = "tl_comment", nullable = false)
+    @Column(name = "tl_comment", nullable = false, columnDefinition = "TEXT")
     private String comment;
 
     @Column(name = "tl_distance_m", nullable = false)

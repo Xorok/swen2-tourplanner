@@ -1,8 +1,8 @@
 package at.tiefenbrunner.swen2semesterprojekt.view;
 
 import at.tiefenbrunner.swen2semesterprojekt.core.ViewHandler;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourDifficulty;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty;
 import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import at.tiefenbrunner.swen2semesterprojekt.util.DurationFormat;
 import at.tiefenbrunner.swen2semesterprojekt.view.util.ColumnFormatter;

@@ -3,6 +3,7 @@ package at.tiefenbrunner.swen2semesterprojekt.repository;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourPoint;
 import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 
 import java.time.ZoneId;
@@ -35,8 +36,6 @@ public class TourMemoryRepository implements TourRepository {
                 Tour tour = entryOpt.get();
                 tour.setName(newTour.getName());
                 tour.setDescription(newTour.getDescription());
-                tour.setFrom(newTour.getFrom());
-                tour.setTo(newTour.getTo());
                 tour.setTourType(newTour.getTourType());
                 tour.setDistanceM(newTour.getDistanceM());
                 return tour;
@@ -72,8 +71,6 @@ public class TourMemoryRepository implements TourRepository {
         Stream<Tour> tourStream = tours.stream() // TODO: Add locale to toLowerCase methods
                 .filter(tour -> tour.getName().toLowerCase().contains(searchTermLc) ||
                         tour.getDescription().toLowerCase().contains(searchTermLc) ||
-                        tour.getFrom().toString().contains(searchTermLc) ||
-                        tour.getTo().toString().contains(searchTermLc) ||
                         tour.getTourType().toString().toLowerCase().contains(searchTermLc) || // TODO: Future localization
                         tour.getDistanceM().toString().contains(searchTermLc) ||
                         String.valueOf(tour.getEstimatedTime().toMinutes()).contains(searchTermLc)
@@ -93,6 +90,23 @@ public class TourMemoryRepository implements TourRepository {
 
 
         return Stream.concat(tourStream, logStream).distinct().collect(Collectors.toList());
+    }
+
+    @Override
+    public void saveTourPoints(List<TourPoint> points) {
+        // TODO
+    }
+
+    @Override
+    public int deleteAllTourPoints(UUID tourId) {
+        // TODO
+        return 0;
+    }
+
+    @Override
+    public List<TourPoint> findRouteByTourId(UUID tourId) {
+        // TODO
+        return List.of();
     }
 
     @Override

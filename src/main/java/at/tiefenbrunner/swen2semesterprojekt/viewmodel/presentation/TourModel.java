@@ -1,34 +1,31 @@
 package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Point;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
-import com.sun.jdi.InvalidTypeException;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourPoint;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
 import jakarta.annotation.Nullable;
 import javafx.beans.property.*;
-import javafx.scene.image.Image;
 
-import java.time.Duration;
-
-import static at.tiefenbrunner.swen2semesterprojekt.util.Constants.RES_ASSETS_SUBPATH;
+import java.util.List;
 
 public class TourModel {
 
-    private final Image mapImgPlaceholder = new Image(getClass().getResourceAsStream(RES_ASSETS_SUBPATH + "map-placeholder.jpg"));
-
-    private ObjectProperty<Image> mapImg = new SimpleObjectProperty<>(mapImgPlaceholder);
-    private StringProperty name = new SimpleStringProperty();
-    private StringProperty description = new SimpleStringProperty();
-    private PointModel from = new PointModel();
-    private PointModel to = new PointModel();
-    private ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(TourType.BIKE);
-    private IntegerProperty distanceM = new SimpleIntegerProperty();
-    private LongProperty estimatedTimeMin = new SimpleLongProperty();
+    private final StringProperty name = new SimpleStringProperty();
+    private final StringProperty description = new SimpleStringProperty();
+    private final PointModel from = new PointModel();
+    private final PointModel to = new PointModel();
+    private final ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(TourType.BIKE);
+    private final IntegerProperty distanceM = new SimpleIntegerProperty();
+    private final LongProperty estimatedTimeMin = new SimpleLongProperty();
+    private final StringProperty errMsg = new SimpleStringProperty();
 
     public TourModel() {
     }
 
     public void setModel(@Nullable Tour model) {
+        errMsg.set("");
+
         if (model == null) {
             this.name.set("");
             this.description.set("");
@@ -37,28 +34,18 @@ public class TourModel {
             this.tourType.set(TourType.BIKE);
             this.distanceM.set(0);
             this.estimatedTimeMin.set(0);
-            this.mapImg.set(mapImgPlaceholder);
         } else {
+            List<TourPoint> points = model.getTourPoints();
             this.name.set(model.getName());
             this.description.set(model.getDescription());
-            this.from.setPoint(model.getFrom());
-            this.to.setPoint(model.getTo());
+            if (points != null && !points.isEmpty()) {
+                this.from.setPoint(points.getFirst().getPoint());
+                this.to.setPoint(points.getLast().getPoint());
+            }
             this.tourType.set(model.getTourType());
             this.distanceM.set(model.getDistanceM());
             this.estimatedTimeMin.set(model.getEstimatedTime().toMinutes());
-            this.mapImg.set(new Image(model.getRouteMapImg(), true));
         }
-    }
-
-    public void transferDataToTour(Tour tour) throws InvalidTypeException {
-        tour.setName(this.name.get());
-        tour.setDescription(this.description.get());
-        tour.setFrom(this.from.getPoint());
-        tour.setTo(this.to.getPoint());
-        tour.setTourType(this.tourType.get());
-        tour.setDistanceM(this.distanceM.get());
-        tour.setEstimatedTime(Duration.ofMinutes(this.estimatedTimeMin.get()));
-        tour.setRouteMapImg(this.mapImg.get().getUrl());
     }
 
     public final StringProperty nameProperty() {
@@ -97,8 +84,8 @@ public class TourModel {
         return estimatedTimeMin;
     }
 
-    public final ObjectProperty<Image> mapImgProperty() {
-        return mapImg;
+    public final StringProperty errorMessageProperty() {
+        return errMsg;
     }
 
     public String getName() {
@@ -141,7 +128,7 @@ public class TourModel {
         this.tourType.set(tourType);
     }
 
-    public double getDistanceM() {
+    public int getDistanceM() {
         return distanceM.get();
     }
 
@@ -157,11 +144,11 @@ public class TourModel {
         this.estimatedTimeMin.set(estimatedTimeMin);
     }
 
-    public Image getMapImg() {
-        return mapImg.get();
+    public String getErrorMessage() {
+        return errMsg.get();
     }
 
-    public void setMapImg(Image mapImg) {
-        this.mapImg.set(mapImg);
+    public void setErrorMessage(String errorMessage) {
+        this.errMsg.set(errorMessage);
     }
 }

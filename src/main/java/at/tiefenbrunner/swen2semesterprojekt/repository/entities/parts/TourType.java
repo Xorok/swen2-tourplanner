@@ -1,4 +1,4 @@
-package at.tiefenbrunner.swen2semesterprojekt.repository.entities;
+package at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts;
 
 import com.sun.jdi.InvalidTypeException;
 

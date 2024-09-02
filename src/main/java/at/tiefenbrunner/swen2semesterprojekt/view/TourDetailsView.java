@@ -1,10 +1,12 @@
 package at.tiefenbrunner.swen2semesterprojekt.view;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.view.util.CoordinateStringConverter;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourDetailsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.converter.NumberStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +32,8 @@ public class TourDetailsView implements Initializable {
     private Label time;
     @FXML
     private Button saveBtn;
+    @FXML
+    private Label errorMsg;
 
     private final TourDetailsViewModel viewModel;
 
@@ -48,16 +52,19 @@ public class TourDetailsView implements Initializable {
     }
 
     private void setupBindings() {
+        NumberStringConverter coordinateConverter = new CoordinateStringConverter();
+
         name.textProperty().bindBidirectional(viewModel.getTourModel().nameProperty());
         description.textProperty().bindBidirectional(viewModel.getTourModel().descriptionProperty());
-        fromX.textProperty().bindBidirectional(viewModel.getTourModel().fromXProperty(), viewModel.getCoordinateFormat());
-        fromY.textProperty().bindBidirectional(viewModel.getTourModel().fromYProperty(), viewModel.getCoordinateFormat());
-        toX.textProperty().bindBidirectional(viewModel.getTourModel().toXProperty(), viewModel.getCoordinateFormat());
-        toY.textProperty().bindBidirectional(viewModel.getTourModel().toYProperty(), viewModel.getCoordinateFormat());
+        fromX.textProperty().bindBidirectional(viewModel.getTourModel().fromXProperty(), coordinateConverter);
+        fromY.textProperty().bindBidirectional(viewModel.getTourModel().fromYProperty(), coordinateConverter);
+        toX.textProperty().bindBidirectional(viewModel.getTourModel().toXProperty(), coordinateConverter);
+        toY.textProperty().bindBidirectional(viewModel.getTourModel().toYProperty(), coordinateConverter);
         type.valueProperty().bindBidirectional(viewModel.getTourModel().tourTypeProperty());
         distance.textProperty().bind(viewModel.getTourModel().distanceMProperty().asString());
         time.textProperty().bind(viewModel.getTourModel().estimatedTimeMinProperty().asString());
         this.saveBtn.disableProperty().bind(viewModel.saveDisabledProperty());
+        errorMsg.textProperty().bind(viewModel.getTourModel().errorMessageProperty());
     }
 
     @FXML

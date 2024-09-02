@@ -3,6 +3,7 @@ package at.tiefenbrunner.swen2semesterprojekt.repository;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourPoint;
 import at.tiefenbrunner.swen2semesterprojekt.service.ConfigService;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
@@ -110,30 +111,91 @@ public class TourDatabaseRepository implements TourRepository {
         // Create predicates for the Tour fields
         Predicate p1 = cb.like(cb.lower(tour.get("name")), wildcardSearchTerm);
         Predicate p2 = cb.like(cb.lower(tour.get("description")), wildcardSearchTerm);
-        Predicate p3 = cb.like(cb.lower(tour.get("from").get("x").as(String.class)), wildcardSearchTerm);
-        Predicate p4 = cb.like(cb.lower(tour.get("from").get("y").as(String.class)), wildcardSearchTerm);
-        Predicate p5 = cb.like(cb.lower(tour.get("to").get("x").as(String.class)), wildcardSearchTerm);
-        Predicate p6 = cb.like(cb.lower(tour.get("to").get("y").as(String.class)), wildcardSearchTerm);
-        Predicate p7 = cb.like(cb.lower(tour.get("tourType")), wildcardSearchTerm); // TODO: Add converted localization to search in future
-        Predicate p8 = cb.equal(tour.get("distanceM").as(String.class), searchTermLc);
-        Predicate p9 = cb.equal(tour.get("estimatedTime").as(String.class), searchTermLc); // TODO: Check how this works
+        Predicate p3 = cb.like(cb.lower(tour.get("tourType")), wildcardSearchTerm); // TODO: Add converted localization to search in future
+        Predicate p4 = cb.equal(tour.get("distanceM").as(String.class), searchTermLc);
+        Predicate p5 = cb.equal(tour.get("estimatedTime").as(String.class), searchTermLc); // TODO: Check how this works
 
         // Create predicates for the TourLog fields
-        Predicate p10 = cb.like(tourLog.get("dateTime").as(String.class), wildcardSearchTerm); // TODO: Check how this works
-        Predicate p11 = cb.like(cb.lower(tourLog.get("comment")), wildcardSearchTerm);
-        Predicate p12 = cb.equal(tourLog.get("totalDistanceM").as(String.class), searchTermLc);
-        Predicate p13 = cb.equal(tourLog.get("totalTime").as(String.class), searchTermLc); // TODO: Check how this works
-        Predicate p14 = cb.like(cb.lower(tourLog.get("difficulty")), wildcardSearchTerm); // TODO: Add converted localization to search in future
-        Predicate p15 = cb.equal(tourLog.get("rating").as(String.class), searchTermLc);
+        Predicate p6 = cb.like(tourLog.get("dateTime").as(String.class), wildcardSearchTerm); // TODO: Check how this works
+        Predicate p7 = cb.like(cb.lower(tourLog.get("comment")), wildcardSearchTerm);
+        Predicate p8 = cb.equal(tourLog.get("totalDistanceM").as(String.class), searchTermLc);
+        Predicate p9 = cb.equal(tourLog.get("totalTime").as(String.class), searchTermLc); // TODO: Check how this works
+        Predicate p10 = cb.like(cb.lower(tourLog.get("difficulty")), wildcardSearchTerm); // TODO: Add converted localization to search in future
+        Predicate p11 = cb.equal(tourLog.get("rating").as(String.class), searchTermLc);
 
         // Combine all predicates using OR
-        Predicate finalPredicate = cb.or(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15);
+        Predicate finalPredicate = cb.or(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
 
         // Set the WHERE clause
         cq.where(finalPredicate);
 
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             return entityManager.createQuery(cq).getResultList();
+        } catch (NoResultException e) {
+            return List.of();
+        }
+    }
+
+    @Override
+    public void saveTourPoints(List<TourPoint> tourPoints) {
+        if (tourPoints == null || tourPoints.isEmpty()) {
+            throw new IllegalArgumentException("TourPoints is null or empty!");
+        }
+        Tour tour = tourPoints.getFirst().getTour();
+        if (tour == null || tour.getId() == null) {
+            throw new IllegalArgumentException("TourPoints doesn't have a valid Tour!");
+        }
+
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            // Delete all current points
+            deleteAllTourPoints(tour.getId());
+
+            // Convert and save new points
+            for (TourPoint tourPoint : tourPoints) {
+                entityManager.persist(tourPoint);
+                entityManager.flush();
+                entityManager.clear();
+            }
+
+            entityManager.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public int deleteAllTourPoints(UUID tourId) {
+        int deleteCount = 0;
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaDelete<TourPoint> delete = builder.createCriteriaDelete(TourPoint.class);
+            Root<TourPoint> root = delete.from(TourPoint.class);
+
+            delete.where(
+                    builder.equal(
+                            root.get("tour").get("id"),
+                            tourId
+                    )
+            );
+
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            deleteCount = entityManager.createQuery(delete).executeUpdate();
+            transaction.commit();
+        }
+        return deleteCount;
+    }
+
+    @Override
+    public List<TourPoint> findRouteByTourId(UUID id) {
+        CriteriaBuilder builder = entityManagerFactory.getCriteriaBuilder();
+        CriteriaQuery<TourPoint> query = builder.createQuery(TourPoint.class);
+        Root<TourPoint> root = query.from(TourPoint.class);
+
+        Predicate termPredicate = builder.equal(root.get("tour").get("id"), id);
+        query.where(termPredicate);
+
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            return entityManager.createQuery(query).getResultList();
         } catch (NoResultException e) {
             return List.of();
         }

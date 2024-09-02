@@ -5,8 +5,8 @@
              version="3.0">
     <persistence-unit name="hibernate">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourType</class>
-        <class>at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourDifficulty</class>
+        <class>at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType</class>
+        <class>at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty</class>
         <class>at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour</class>
         <class>at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog</class>
 

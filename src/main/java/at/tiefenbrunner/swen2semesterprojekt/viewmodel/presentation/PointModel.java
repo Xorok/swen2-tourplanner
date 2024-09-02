@@ -1,6 +1,6 @@
 package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Point;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 

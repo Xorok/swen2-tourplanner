@@ -8,38 +8,41 @@
         <fx:include source="map-view.fxml"/>
     </StackPane>
     <ScrollPane fitToHeight="true" fitToWidth="true">
-        <GridPane hgap="10" vgap="10">
-            <padding>
-                <Insets bottom="10" left="15" right="15" top="10"/>
-            </padding>
-            <columnConstraints>
-                <ColumnConstraints minWidth="-Infinity"/>
-                <ColumnConstraints hgrow="ALWAYS"/>
-            </columnConstraints>
+        <VBox alignment="TOP_CENTER">
+            <GridPane hgap="10" vgap="10">
+                <padding>
+                    <Insets bottom="10" left="15" right="15" top="10"/>
+                </padding>
+                <columnConstraints>
+                    <ColumnConstraints minWidth="-Infinity"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
 
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="0">Name</Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="name"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="1">Tour Description</Label>
-            <TextArea GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="description"
-                      prefRowCount="3"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="2">From (Lat, Long)</Label>
-            <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <TextField HBox.hgrow="ALWAYS" fx:id="fromX"/>
-                <TextField HBox.hgrow="ALWAYS" fx:id="fromY"/>
-            </HBox>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="3">To (Lat, Long)</Label>
-            <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
-                <TextField HBox.hgrow="ALWAYS" fx:id="toX"/>
-                <TextField HBox.hgrow="ALWAYS" fx:id="toY"/>
-            </HBox>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="4">Transport Type</Label>
-            <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="type"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="5">Tour Distance (m)</Label>
-            <Label GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="distance"/>
-            <Label GridPane.columnIndex="0" GridPane.rowIndex="6">Estimated Time (min)</Label>
-            <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="time"/>
-            <Button GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.halignment="RIGHT"
-                    fx:id="saveBtn" text="Save &#x1F4BE;" onAction="#onSave"/>
-        </GridPane>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="0">Name</Label>
+                <TextField GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="name"/>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="1">Tour Description</Label>
+                <TextArea GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="description"
+                          wrapText="true" prefRowCount="9"/>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="2">From (Lat, Long)</Label>
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <TextField HBox.hgrow="ALWAYS" fx:id="fromY"/>
+                    <TextField HBox.hgrow="ALWAYS" fx:id="fromX"/>
+                </HBox>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="3">To (Lat, Long)</Label>
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <TextField HBox.hgrow="ALWAYS" fx:id="toY"/>
+                    <TextField HBox.hgrow="ALWAYS" fx:id="toX"/>
+                </HBox>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="4">Transport Type</Label>
+                <ComboBox GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="type"/>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="5">Tour Distance (m)</Label>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="distance"/>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="6">Estimated Time (min)</Label>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="time"/>
+                <Button GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.halignment="RIGHT"
+                        fx:id="saveBtn" text="Save &#x1F4BE;" onAction="#onSave"/>
+            </GridPane>
+            <Label fx:id="errorMsg" textFill="red" style="-fx-font-style: italic;"/>
+        </VBox>
     </ScrollPane>
 </SplitPane>

@@ -59,13 +59,13 @@ public class ViewModelFactory {
 
     public TourDetailsViewModel getTourDetailsViewModel() {
         if (tourDetailsViewModel == null)
-            tourDetailsViewModel = new TourDetailsViewModel(publisher, serviceFactory.getTourService());
+            tourDetailsViewModel = new TourDetailsViewModel(publisher, serviceFactory.getTourService(), serviceFactory.getOrsRouteService());
         return tourDetailsViewModel;
     }
 
     public MapViewModel getMapViewModel() {
         if (mapViewModel == null)
-            mapViewModel = new MapViewModel(publisher, serviceFactory.getTourService(), serviceFactory.getOrsRouteService());
+            mapViewModel = new MapViewModel(publisher, serviceFactory.getTourService());
         return mapViewModel;
     }
 

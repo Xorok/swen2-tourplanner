@@ -1,6 +1,6 @@
 package at.tiefenbrunner.swen2semesterprojekt.view;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourDifficulty;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourLogDetailsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

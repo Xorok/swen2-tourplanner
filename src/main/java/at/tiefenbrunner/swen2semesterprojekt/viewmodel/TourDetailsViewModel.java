@@ -2,36 +2,38 @@ package at.tiefenbrunner.swen2semesterprojekt.viewmodel;
 
 import at.tiefenbrunner.swen2semesterprojekt.event.Event;
 import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Point;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
 import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
+import at.tiefenbrunner.swen2semesterprojekt.service.route.OrsProfile;
+import at.tiefenbrunner.swen2semesterprojekt.service.route.OrsRouteService;
+import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation.TourModel;
-import com.sun.jdi.InvalidTypeException;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.extern.log4j.Log4j2;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Log4j2
 public class TourDetailsViewModel {
     private final Publisher publisher;
-    private final TourService model;
+    private final TourService tourService;
+    private final OrsRouteService routeService;
 
     private Tour tour;
     private final TourModel tourModel;
 
     private final BooleanProperty saveDisabled = new SimpleBooleanProperty(true);
 
-    private final NumberFormat coordinateFormat = new DecimalFormat("##0.000000");
-
-    public TourDetailsViewModel(Publisher publisher, TourService model) {
+    public TourDetailsViewModel(Publisher publisher, TourService tourService, OrsRouteService routeService) {
         this.publisher = publisher;
-        this.model = model;
+        this.tourService = tourService;
+        this.routeService = routeService;
         this.tour = new Tour();
         this.tourModel = new TourModel();
 
@@ -76,7 +78,7 @@ public class TourDetailsViewModel {
     private void showTour(String uuidStr) {
         try {
             UUID uuid = UUID.fromString(uuidStr);
-            Optional<Tour> tourOpt = model.findTourById(uuid);
+            Optional<Tour> tourOpt = tourService.findTourById(uuid);
             if (tourOpt.isEmpty()) {
                 log.error("Couldn't find selected Tour with ID {}", uuidStr);
                 // TODO: Handle invalid state
@@ -98,8 +100,8 @@ public class TourDetailsViewModel {
         return tourModel;
     }
 
-    public NumberFormat getCoordinateFormat() {
-        return coordinateFormat;
+    public String getCoordinateFormat() {
+        return Constants.COORDINATE_FORMAT;
     }
 
     public void save() {
@@ -107,15 +109,39 @@ public class TourDetailsViewModel {
             return;
         }
 
-        try {
-            tourModel.transferDataToTour(tour); // Transfer changes from model to Tour instance
-            Tour savedTour = model.saveTour(tour);
-            publisher.publish(Event.SEARCH_TERM_SEARCHED, ""); // Refresh results view by showing all
-            publisher.publish(Event.TOUR_LIST_SELECTED_TOUR, savedTour.getId().toString()); // Select newly added tour entry
-        } catch (InvalidTypeException e) {
-            // TODO: Define more errors in tourModel
-            log.error(e.getStackTrace());
-        }
+        transferModelToTour(tour, tourModel); // Transfer changes from model to Tour instance
+        fetchRoute(tour, tourModel);
+    }
+
+    private void transferModelToTour(Tour tour, TourModel tourModel) {
+        tour.setName(tourModel.getName());
+        tour.setDescription(tourModel.getDescription());
+        tour.setTourType(tourModel.getTourType());
+        tour.setDistanceM(tourModel.getDistanceM());
+        tour.setEstimatedTime(Duration.ofMinutes(tourModel.getEstimatedTimeMin()));
+    }
+
+    private void fetchRoute(Tour tour, TourModel tourModel) {
+        routeService.getRoute(
+                tourModel.getFrom(),
+                tourModel.getTo(),
+                OrsProfile.mapFrom(tourModel.getTourType()),
+                (List<Point> route) -> processRoute(route, tour),
+                this::processError
+        );
+    }
+
+    private void processRoute(List<Point> route, Tour tour) {
+        tourModel.setErrorMessage("");
+        tour = tourService.saveTour(tour);
+        tourService.saveRoute(route, tour);
+
+        publisher.publish(Event.SEARCH_TERM_SEARCHED, ""); // Refresh results view by showing all
+        publisher.publish(Event.TOUR_LIST_SELECTED_TOUR, tour.getId().toString()); // Select newly added tour entry
+    }
+
+    private void processError(String errorMsg) {
+        tourModel.setErrorMessage(errorMsg);
     }
 
     public BooleanProperty saveDisabledProperty() {

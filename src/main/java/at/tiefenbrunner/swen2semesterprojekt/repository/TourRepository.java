@@ -2,6 +2,7 @@ package at.tiefenbrunner.swen2semesterprojekt.repository;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourPoint;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,12 @@ public interface TourRepository {
     Optional<Tour> findTourById(UUID id);
 
     List<Tour> fullTextTourSearch(String searchTerm);
+
+    void saveTourPoints(List<TourPoint> points);
+
+    int deleteAllTourPoints(UUID tourId);
+
+    List<TourPoint> findRouteByTourId(UUID tourId);
 
     TourLog saveTourLog(TourLog entity);
 
