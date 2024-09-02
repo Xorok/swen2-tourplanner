@@ -22,7 +22,7 @@ public class TourLog {
     @Column(name = "tl_id", insertable = false, updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "tl_t_tour", nullable = false)
     private Tour tour;
 
