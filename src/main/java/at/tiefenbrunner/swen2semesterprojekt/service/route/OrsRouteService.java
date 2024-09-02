@@ -2,24 +2,43 @@ package at.tiefenbrunner.swen2semesterprojekt.service.route;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
 import at.tiefenbrunner.swen2semesterprojekt.service.ConfigService;
-import javafx.application.Platform;
+import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import lombok.extern.log4j.Log4j2;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
+import static at.tiefenbrunner.swen2semesterprojekt.util.DurationDecimalTimeConverter.fromDecimalSeconds;
+
 @Log4j2
 public class OrsRouteService {
     private static final String BASE_URL = "https://api.openrouteservice.org/v2/";
     private static final String DIRECTIONS_URL_TEMPLATE = BASE_URL + "directions/%s?api_key=%s&start=%f,%f&end=%f,%f";
+
+    public static void main(String[] args) {
+        Point start = new Point(-0.1278, 51.5074);  // London
+        Point end = new Point(2.3522, 48.8566);   // Paris
+
+        try {
+            OrsRouteService orsRouteService = new OrsRouteService(new ConfigService(Constants.CONFIG_FILE_PATH));
+            orsRouteService.getRoute(start, end, OrsProfile.DRIVING_CAR,
+                    log::info,
+                    log::error
+            );
+        } catch (IOException e) {
+            log.error("Error getting route: {}", e.getMessage());
+        }
+    }
 
     private final ConfigService configService;
 
@@ -27,7 +46,7 @@ public class OrsRouteService {
         this.configService = configService;
     }
 
-    public void getRoute(Point start, Point end, OrsProfile profile, Consumer<List<Point>> successCallback, Consumer<String> errorCallback) {
+    public void getRoute(Point start, Point end, OrsProfile profile, Consumer<RouteResult> successCallback, Consumer<String> errorCallback) {
         String apiKey = configService.getConfigValue("ors.api-key");
 
         String urlString = String.format(
@@ -55,22 +74,26 @@ public class OrsRouteService {
                 conn.disconnect();
 
                 JSONObject response = new JSONObject(content.toString());
-                List<Point> route = processJsonData(response);
+                RouteResult route = processJsonData(response);
 
                 // Callback UI thread with data
-                Platform.runLater(() -> successCallback.accept(route));
+                successCallback.accept(route);
             } catch (Exception e) {
                 log.error("An exception occurred while fetching the route!", e);
                 // Callback UI thread with data
-                Platform.runLater(() -> errorCallback.accept("There is no route available for the selected configuration!"));
+                errorCallback.accept("There is no route available for the selected configuration!");
                 // TODO: Add different error messages based on exception type (e.g. internet issues, etc)
             }
         }).start();
     }
 
-    private List<Point> processJsonData(JSONObject response) {
-        JSONArray coordinates = response.getJSONArray("features")
-                .getJSONObject(0)
+    private RouteResult processJsonData(JSONObject response) {
+        log.info("Route Response: {}", response);
+
+        JSONObject container = response.getJSONArray("features")
+                .getJSONObject(0);
+
+        JSONArray coordinates = container
                 .getJSONObject("geometry")
                 .getJSONArray("coordinates");
 
@@ -82,6 +105,13 @@ public class OrsRouteService {
             points.add(new Point(lng, lat));
         }
 
-        return points;
+        JSONObject routeProperties = container
+                .getJSONObject("properties")
+                .getJSONObject("summary");
+
+        Duration duration = fromDecimalSeconds(routeProperties.getDouble("duration"));
+        int distanceInM = (int) Math.round(routeProperties.getDouble("distance"));
+
+        return new RouteResult(points, duration, distanceInM);
     }
 }

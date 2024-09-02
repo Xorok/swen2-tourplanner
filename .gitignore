@@ -1,6 +1,8 @@
 # Config files
 config.properties
 
+# Generated Map Images
+maps/
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,windows,java,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,windows,java,maven

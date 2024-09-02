@@ -7,15 +7,16 @@ import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
 import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 import at.tiefenbrunner.swen2semesterprojekt.service.route.OrsProfile;
 import at.tiefenbrunner.swen2semesterprojekt.service.route.OrsRouteService;
+import at.tiefenbrunner.swen2semesterprojekt.service.route.RouteResult;
 import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation.TourModel;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import lombok.extern.log4j.Log4j2;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -126,15 +127,19 @@ public class TourDetailsViewModel {
                 tourModel.getFrom(),
                 tourModel.getTo(),
                 OrsProfile.mapFrom(tourModel.getTourType()),
-                (List<Point> route) -> processRoute(route, tour),
-                this::processError
+                (RouteResult result) -> Platform.runLater(() -> processRouteResult(result, tour)),
+                (String errorMsg) -> Platform.runLater(() -> processError(errorMsg))
         );
     }
 
-    private void processRoute(List<Point> route, Tour tour) {
+    private void processRouteResult(RouteResult result, Tour tour) {
         tourModel.setErrorMessage("");
+
+        tour.setEstimatedTime(result.getDuration());
+        tour.setDistanceM(result.getDistanceInM());
+
         tour = tourService.saveTour(tour);
-        tourService.saveRoute(route, tour);
+        tourService.saveRoute(result.getRoute(), tour);
 
         publisher.publish(Event.SEARCH_TERM_SEARCHED, ""); // Refresh results view by showing all
         publisher.publish(Event.TOUR_LIST_SELECTED_TOUR, tour.getId().toString()); // Select newly added tour entry
