@@ -8,4 +8,5 @@ public enum Event {
     TOUR_LOGS_CREATE_LOG,
     TOUR_LOGS_EDIT_LOG,
     TOUR_LOGS_CHANGED,
+    SWITCH_THEME,
 }

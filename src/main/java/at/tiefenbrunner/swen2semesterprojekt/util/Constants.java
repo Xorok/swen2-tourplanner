@@ -2,9 +2,10 @@ package at.tiefenbrunner.swen2semesterprojekt.util;
 
 public class Constants {
     public static final String CONFIG_FILE_PATH = "config.properties";
-    public static final String RES_SUBPATH = "/at/tiefenbrunner/swen2semesterprojekt/";
-    public static final String RES_ASSETS_SUBPATH = RES_SUBPATH + "assets/";
-    public static final String RES_WEB_SUBPATH = RES_SUBPATH + "web/";
+    public static final String RES_PATH = "/at/tiefenbrunner/swen2semesterprojekt/";
+    public static final String RES_ASSETS_PATH = RES_PATH + "assets/";
+    public static final String RES_WEB_PATH = RES_PATH + "web/";
+    public static final String RES_STYLE_PATH = RES_PATH + "styles/";
     public static final String RES_BASENAME_GUI_STRINGS = "at.tiefenbrunner.swen2semesterprojekt.gui_strings"; // TODO: Use vars for UI
     public static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm";
     public static final String COORDINATE_FORMAT = "##0.000000";

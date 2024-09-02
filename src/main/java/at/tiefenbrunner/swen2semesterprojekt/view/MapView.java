@@ -33,7 +33,7 @@ public class MapView implements Initializable {
     private void setupWebView() {
         webEngine = webView.getEngine();
         webEngine.setOnError(log::error);
-        webEngine.load(getClass().getResource(Constants.RES_WEB_SUBPATH + "map.html").toExternalForm());
+        webEngine.load(getClass().getResource(Constants.RES_WEB_PATH + "map.html").toExternalForm());
     }
 
     private void setupBindings() {

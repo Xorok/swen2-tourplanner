@@ -35,7 +35,7 @@ public class ViewModelFactory {
 
     public MainViewModel getMainViewModel() {
         if (mainViewModel == null)
-            mainViewModel = new MainViewModel(publisher, serviceFactory.getTourService());
+            mainViewModel = new MainViewModel(publisher, serviceFactory.getConfigService());
         return mainViewModel;
     }
 
@@ -77,7 +77,7 @@ public class ViewModelFactory {
 
     public TourLogDetailsViewModel getTourLogDetailsViewModel() {
         if (tourLogDetailsViewModel == null)
-            tourLogDetailsViewModel = new TourLogDetailsViewModel(publisher, serviceFactory.getTourService());
+            tourLogDetailsViewModel = new TourLogDetailsViewModel(publisher, serviceFactory.getTourService(), serviceFactory.getConfigService());
         return tourLogDetailsViewModel;
     }
 }

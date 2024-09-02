@@ -45,7 +45,7 @@ public class ViewHandler {
 
     public void openWindow(Windows viewToOpen, @Nullable Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                ViewHandler.class.getResource(RES_SUBPATH + viewToOpen.fxml),
+                ViewHandler.class.getResource(RES_PATH + viewToOpen.fxml),
                 ResourceBundle.getBundle(RES_BASENAME_GUI_STRINGS, Locale.ENGLISH), // TODO: Make language configurable
                 new JavaFXBuilderFactory(),
                 (Class<?> viewClass) -> viewFactory.create(viewClass, this)
@@ -54,7 +54,7 @@ public class ViewHandler {
         Scene scene = new Scene(view);
         Stage window = stage != null ? stage : new Stage();
         window.setTitle(viewToOpen.windowTitle);
-        window.getIcons().add(new Image(getClass().getResourceAsStream(RES_ASSETS_SUBPATH + "app-icon.png")));
+        window.getIcons().add(new Image(getClass().getResourceAsStream(RES_ASSETS_PATH + "app-icon.png")));
         window.setScene(scene);
         window.show();
     }

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-            fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.MainView">
+            fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.MainView"
+            fx:id="borderPane">
 
     <!-- TODO: Define gui strings in properties file -->
 
     <top>
-        <fx:include source="search-bar-view.fxml"/>
+        <VBox>
+            <MenuBar>
+                <Menu text="Settings">
+                    <MenuItem text="Switch theme &#127767;" onAction="#onSwitchTheme"/>
+                </Menu>
+            </MenuBar>
+            <fx:include source="search-bar-view.fxml"/>
+        </VBox>
     </top>
 
     <left>

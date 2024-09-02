@@ -28,6 +28,10 @@ public class ServiceFactory {
         return instance;
     }
 
+    public ConfigService getConfigService() {
+        return configService;
+    }
+
     public TourService getTourService() {
         if (tourService == null) {
             tourService = new TourService(getTourDatabaseRepository(), getMapImageService());

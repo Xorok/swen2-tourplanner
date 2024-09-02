@@ -4,6 +4,7 @@ import at.tiefenbrunner.swen2semesterprojekt.event.Event;
 import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.service.ConfigService;
 import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation.TourLogModel;
 import javafx.beans.InvalidationListener;
@@ -18,20 +19,30 @@ import java.util.UUID;
 public class TourLogDetailsViewModel {
     private final Publisher publisher;
     private final TourService model;
+    private final ConfigService configService;
 
     private TourLog tourLog;
     private final TourLogModel tourLogModel;
 
     private final BooleanProperty saveDisabled = new SimpleBooleanProperty(true);
+    private BooleanProperty darkTheme;
 
-    public TourLogDetailsViewModel(Publisher publisher, TourService model) {
+    public TourLogDetailsViewModel(Publisher publisher, TourService model, ConfigService configService) {
         this.publisher = publisher;
         this.model = model;
+        this.configService = configService;
         this.tourLog = new TourLog();
         this.tourLogModel = new TourLogModel();
 
+        setupTheme();
         setupBindings();
         setupEvents();
+    }
+
+    private void setupTheme() {
+        darkTheme = new SimpleBooleanProperty(
+                Boolean.parseBoolean(configService.getConfigValue("app.dark-theme"))
+        );
     }
 
     private void setupBindings() {
@@ -54,6 +65,7 @@ public class TourLogDetailsViewModel {
     private void setupEvents() {
         publisher.subscribe(Event.TOUR_LOGS_CREATE_LOG, this::createNewTourLog);
         publisher.subscribe(Event.TOUR_LOGS_EDIT_LOG, this::showTourLog);
+        publisher.subscribe(Event.SWITCH_THEME, (empty) -> switchTheme());
     }
 
     private void createNewTourLog(String tourId) {
@@ -88,6 +100,10 @@ public class TourLogDetailsViewModel {
         }
     }
 
+    private void switchTheme() {
+        darkTheme.set(!darkTheme.getValue());
+    }
+
     private void resetData() {
         tourLogModel.setModel(null);
         tourLog = new TourLog();
@@ -109,6 +125,10 @@ public class TourLogDetailsViewModel {
 
     public BooleanProperty saveDisabledProperty() {
         return saveDisabled;
+    }
+
+    public BooleanProperty darkThemeProperty() {
+        return darkTheme;
     }
 
     public boolean getSaveDisabled() {

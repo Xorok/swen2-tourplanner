@@ -1,6 +1,7 @@
 package at.tiefenbrunner.swen2semesterprojekt.view;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty;
+import at.tiefenbrunner.swen2semesterprojekt.view.util.ThemedView;
 import at.tiefenbrunner.swen2semesterprojekt.viewmodel.TourLogDetailsViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,7 +13,7 @@ import javafx.util.converter.NumberStringConverter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TourLogDetailsView implements Initializable {
+public class TourLogDetailsView extends ThemedView implements Initializable {
     @FXML
     private VBox rootView;
     @FXML
@@ -38,8 +39,15 @@ public class TourLogDetailsView implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupTheme();
         setupUiComponents();
         setupBindings();
+    }
+
+    private void setupTheme() {
+        if (viewModel.darkThemeProperty().get()) {
+            setTheme(rootView, true);
+        }
     }
 
     private void setupUiComponents() {
@@ -54,7 +62,9 @@ public class TourLogDetailsView implements Initializable {
         rating.textProperty().bindBidirectional(viewModel.getTourLogModel().ratingProperty(), new NumberStringConverter());
         tourDifficulty.valueProperty().bindBidirectional(viewModel.getTourLogModel().tourDifficultyProperty());
         this.saveBtn.disableProperty().bind(viewModel.saveDisabledProperty());
+        viewModel.darkThemeProperty().addListener((observable, oldValue, newValue) -> setTheme(rootView, newValue));
     }
+
 
     @FXML
     private void onSave() {
