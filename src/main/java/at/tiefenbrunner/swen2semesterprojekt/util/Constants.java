@@ -11,6 +11,7 @@ public class Constants {
     public static final String COORDINATE_FORMAT = "##0.000000";
     public static final String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:131.0) Gecko/20100101 Firefox/131.0";
     public static final String MAP_IMAGES_PATH = "maps/";
+    public static final String REPORTS_PATH = "reports/";
 
     public enum Windows {
         MAIN("views/main-view.fxml", "Tour Planner - Main View"), // TODO: Move to gui_string resource file

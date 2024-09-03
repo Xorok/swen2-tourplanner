@@ -30,6 +30,7 @@ public class TourDetailsViewModel {
     private final TourModel tourModel;
 
     private final BooleanProperty saveDisabled = new SimpleBooleanProperty(true);
+    private final BooleanProperty exportDisabled = new SimpleBooleanProperty(true);
 
     public TourDetailsViewModel(Publisher publisher, TourService tourService, OrsRouteService routeService) {
         this.publisher = publisher;
@@ -44,13 +45,13 @@ public class TourDetailsViewModel {
 
     private void setupBindings() {
         // if any tour form fields are empty, disable save button
-        InvalidationListener listener = observable -> saveDisabled.set(formFieldIsEmpty());
-        this.tourModel.nameProperty().addListener(listener);
-        this.tourModel.descriptionProperty().addListener(listener);
-        this.tourModel.fromXProperty().addListener(listener);
-        this.tourModel.fromYProperty().addListener(listener);
-        this.tourModel.toXProperty().addListener(listener);
-        this.tourModel.toYProperty().addListener(listener);
+        InvalidationListener saveBtnlistener = observable -> saveDisabled.set(formFieldIsEmpty());
+        this.tourModel.nameProperty().addListener(saveBtnlistener);
+        this.tourModel.descriptionProperty().addListener(saveBtnlistener);
+        this.tourModel.fromXProperty().addListener(saveBtnlistener);
+        this.tourModel.fromYProperty().addListener(saveBtnlistener);
+        this.tourModel.toXProperty().addListener(saveBtnlistener);
+        this.tourModel.toYProperty().addListener(saveBtnlistener);
     }
 
     private boolean formFieldIsEmpty() {
@@ -85,6 +86,7 @@ public class TourDetailsViewModel {
                 // TODO: Handle invalid state
             } else {
                 tour = tourOpt.get();
+                exportDisabled.set(false);
                 tourModel.setModel(tour);
             }
         } catch (IllegalArgumentException e) {
@@ -95,6 +97,7 @@ public class TourDetailsViewModel {
     private void resetData() {
         tourModel.setModel(null);
         tour = new Tour();
+        exportDisabled.set(true);
     }
 
     public TourModel getTourModel() {
@@ -112,6 +115,14 @@ public class TourDetailsViewModel {
 
         transferModelToTour(tour, tourModel); // Transfer changes from model to Tour instance
         fetchRoute(tour, tourModel);
+    }
+
+    public void export() {
+        if (exportDisabled.get()) {
+            return;
+        }
+
+        tourService.generateReport(tour);
     }
 
     private void transferModelToTour(Tour tour, TourModel tourModel) {
@@ -151,6 +162,10 @@ public class TourDetailsViewModel {
 
     public BooleanProperty saveDisabledProperty() {
         return saveDisabled;
+    }
+
+    public BooleanProperty exportDisabledProperty() {
+        return exportDisabled;
     }
 
     public boolean getSaveDisabled() {

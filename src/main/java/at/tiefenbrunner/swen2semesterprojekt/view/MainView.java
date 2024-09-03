@@ -39,4 +39,9 @@ public class MainView extends ThemedView implements Initializable {
 
         setTheme(borderPane, newThemeState);
     }
+
+    @FXML
+    public void onExportPdf() {
+        viewModel.exportPdf();
+    }
 }

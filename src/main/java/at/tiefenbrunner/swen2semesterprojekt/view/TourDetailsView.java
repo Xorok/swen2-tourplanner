@@ -34,6 +34,8 @@ public class TourDetailsView implements Initializable {
     private Button saveBtn;
     @FXML
     private Label errorMsg;
+    @FXML
+    private Button exportBtn;
 
     private final TourDetailsViewModel viewModel;
 
@@ -64,11 +66,17 @@ public class TourDetailsView implements Initializable {
         distance.textProperty().bind(viewModel.getTourModel().distanceMProperty().asString());
         time.textProperty().bind(viewModel.getTourModel().estimatedTimeMinProperty().asString());
         this.saveBtn.disableProperty().bind(viewModel.saveDisabledProperty());
+        this.exportBtn.disableProperty().bind(viewModel.exportDisabledProperty());
         errorMsg.textProperty().bind(viewModel.getTourModel().errorMessageProperty());
     }
 
     @FXML
     private void onSave() {
         viewModel.save();
+    }
+
+    @FXML
+    private void onExport() {
+        viewModel.export();
     }
 }

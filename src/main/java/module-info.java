@@ -11,6 +11,10 @@ module at.tiefenbrunner.swen2semesterprojekt {
     requires jakarta.persistence;
     requires javafx.web;
     requires org.json;
+    requires layout;
+    requires kernel;
+    requires org.slf4j;
+    requires io;
 
     opens at.tiefenbrunner.swen2semesterprojekt to javafx.fxml;
     opens at.tiefenbrunner.swen2semesterprojekt.view to javafx.fxml;

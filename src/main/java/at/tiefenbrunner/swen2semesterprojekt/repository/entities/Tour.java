@@ -39,7 +39,7 @@ public class Tour {
     private Duration estimatedTime;
 
     // TODO: Implement lazy fetching, get rid of FetchType.EAGER
-    @OneToMany(mappedBy = "tour", cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
     private List<TourLog> tourLogs; // TODO: Not fully implemented in TourMemoryRepository
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

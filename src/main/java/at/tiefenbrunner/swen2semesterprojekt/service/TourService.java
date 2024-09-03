@@ -20,10 +20,12 @@ public class TourService {
 
     private final TourRepository tourRepository;
     private final MapImageService mapImageService;
+    private final TourReportService tourReportService;
 
-    public TourService(TourRepository tourRepository, MapImageService mapImageService) {
+    public TourService(TourRepository tourRepository, MapImageService mapImageService, TourReportService tourReportService) {
         this.tourRepository = tourRepository;
         this.mapImageService = mapImageService;
+        this.tourReportService = tourReportService;
     }
 
     public Tour saveTour(Tour tour) {
@@ -93,5 +95,26 @@ public class TourService {
 
     public List<TourLog> findAllLogsByTourId(UUID id) {
         return tourRepository.findTourLogsByTourId(id);
+    }
+
+    public void generateReport(Tour tour) {
+        if (tour == null || tour.getId() == null)
+            return;
+
+        try {
+            tourReportService.generateReport(List.of(tour), "tour_report_" + tour.getId(), true);
+        } catch (Exception e) {
+            log.error("Couldn't generate report for tour {}!", tour.getId(), e);
+            // TODO: Show error in UI - couldn't generate report
+        }
+    }
+
+    public void generateSummaryReport() {
+        try {
+            tourReportService.generateReport(findAllTours(), "tours_summary_report", false);
+        } catch (Exception e) {
+            log.error("Couldn't generate report for tours!", e);
+            // TODO: Show error in UI - couldn't generate report
+        }
     }
 }

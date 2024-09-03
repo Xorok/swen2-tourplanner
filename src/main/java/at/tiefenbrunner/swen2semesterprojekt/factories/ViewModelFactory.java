@@ -35,7 +35,7 @@ public class ViewModelFactory {
 
     public MainViewModel getMainViewModel() {
         if (mainViewModel == null)
-            mainViewModel = new MainViewModel(publisher, serviceFactory.getConfigService());
+            mainViewModel = new MainViewModel(publisher, serviceFactory.getConfigService(), serviceFactory.getTourService());
         return mainViewModel;
     }
 
