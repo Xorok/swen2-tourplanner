@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <SplitPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourDetailsView"
+           fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.controller.TourDetailsView"
            dividerPositions="0.5f">
     <StackPane>
         <fx:include source="map-view.fxml"/>

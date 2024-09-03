@@ -1,11 +1,12 @@
 package at.tiefenbrunner.swen2semesterprojekt.viewmodel;
 
-import at.tiefenbrunner.swen2semesterprojekt.event.Event;
-import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
-import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
-import at.tiefenbrunner.swen2semesterprojekt.service.route.OrsRouteService;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.data.service.TourService;
+import at.tiefenbrunner.swen2semesterprojekt.data.service.route.OrsRouteService;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.event.Event;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.event.Publisher;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.viewmodels.TourDetailsViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

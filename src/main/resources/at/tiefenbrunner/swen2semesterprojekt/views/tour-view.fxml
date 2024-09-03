@@ -1,7 +1,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <TabPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-         fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourView"
+         fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.controller.TourView"
          tabClosingPolicy="UNAVAILABLE">
     <Tab text="Details">
         <fx:include source="tour-details-view.fxml"/>

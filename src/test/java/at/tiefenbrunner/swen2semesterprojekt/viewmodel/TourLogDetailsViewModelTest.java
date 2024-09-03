@@ -1,13 +1,14 @@
 package at.tiefenbrunner.swen2semesterprojekt.viewmodel;
 
-import at.tiefenbrunner.swen2semesterprojekt.event.Event;
-import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
-import at.tiefenbrunner.swen2semesterprojekt.service.ConfigService;
-import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.TourDifficulty;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.data.service.ConfigService;
+import at.tiefenbrunner.swen2semesterprojekt.data.service.TourService;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.event.Event;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.event.Publisher;
+import at.tiefenbrunner.swen2semesterprojekt.viewmodel.viewmodels.TourLogDetailsViewModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import org.junit.jupiter.api.BeforeEach;

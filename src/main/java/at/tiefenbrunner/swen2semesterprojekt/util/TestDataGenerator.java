@@ -1,11 +1,11 @@
 package at.tiefenbrunner.swen2semesterprojekt.util;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourDifficulty;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
-import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.TourLog;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.Point;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.TourDifficulty;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.data.service.TourService;
 
 import java.time.Duration;
 import java.time.Instant;

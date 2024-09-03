@@ -5,7 +5,7 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.text.DecimalFormatSymbols;
 
-// TODO: Extract conversion logic outside of View
+// TODO: Extract logic outside of View
 public class CoordinateStringConverter extends NumberStringConverter {
     DecimalFormatSymbols dfs = new DecimalFormatSymbols();
 

@@ -1,7 +1,8 @@
 package at.tiefenbrunner.swen2semesterprojekt.service;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.data.service.TourReportService;
 import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

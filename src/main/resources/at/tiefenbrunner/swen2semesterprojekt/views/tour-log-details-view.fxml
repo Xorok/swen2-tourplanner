@@ -2,7 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogDetailsView"
+      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.controller.TourLogDetailsView"
       fx:id="rootView">
     <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
         <GridPane hgap="10" vgap="10">

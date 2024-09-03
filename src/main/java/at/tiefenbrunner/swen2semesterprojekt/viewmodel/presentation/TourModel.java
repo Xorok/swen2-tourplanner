@@ -1,11 +1,11 @@
 package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourPoint;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.computed.TourChildFriendliness;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.computed.TourPopularity;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.Tour;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.TourPoint;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.computed.TourChildFriendliness;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.computed.TourPopularity;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.Point;
+import at.tiefenbrunner.swen2semesterprojekt.data.repository.entities.parts.TourType;
 import jakarta.annotation.Nullable;
 import javafx.beans.property.*;
 

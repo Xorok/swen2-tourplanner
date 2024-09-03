@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.14-internal"
-            fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.MainView"
+            fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.controller.MainView"
             fx:id="borderPane">
 
     <!-- TODO: Define gui strings in properties file -->

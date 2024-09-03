@@ -2,7 +2,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.ToursListView">
+      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.controller.ToursListView">
     <ListView fx:id="toursList" VBox.vgrow="ALWAYS"/>
     <ButtonBar>
         <buttons>

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.VBox?>
 <VBox prefWidth="600" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.TourLogsView">
+      fx:controller="at.tiefenbrunner.swen2semesterprojekt.view.controller.TourLogsView">
     <TableView fx:id="logsTable" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="dateTime" prefWidth="${logsTable.width*0.1}" text="Timestamp">
