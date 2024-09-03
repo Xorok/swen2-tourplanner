@@ -41,7 +41,11 @@
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="6" fx:id="distance"/>
                 <Label GridPane.columnIndex="0" GridPane.rowIndex="7">Estimated Time (min)</Label>
                 <Label GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="time"/>
-                <Button GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.halignment="RIGHT"
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="8">Popularity</Label>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="8" fx:id="popularity"/>
+                <Label GridPane.columnIndex="0" GridPane.rowIndex="9">Child Friendliness</Label>
+                <Label GridPane.columnIndex="1" GridPane.rowIndex="9" fx:id="childFriendliness"/>
+                <Button GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.halignment="RIGHT"
                         fx:id="saveBtn" text="Save &#x1F4BE;" onAction="#onSave"/>
             </GridPane>
             <Label fx:id="errorMsg" textFill="red" style="-fx-font-style: italic;"/>

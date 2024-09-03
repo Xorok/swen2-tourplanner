@@ -23,7 +23,22 @@ public enum TourDifficulty {
         };
     }
 
+    public static TourDifficulty mapFrom(int value) throws InvalidTypeException {
+        if (value == 1) return EASY;
+        else if (value == 2) return MEDIUM;
+        else if (value == 3) return HARD;
+        else throw new InvalidTypeException("No Difficulty mapping for \"" + value + "\"!");
+    }
+
     public String toString() {
         return displayLabel;
+    }
+
+    public int toNumberGrade() {
+        return switch (this) {
+            case EASY -> 1;
+            case MEDIUM -> 2;
+            case HARD -> 3;
+        };
     }
 }

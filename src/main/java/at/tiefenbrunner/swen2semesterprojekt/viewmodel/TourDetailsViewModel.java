@@ -64,6 +64,7 @@ public class TourDetailsViewModel {
     private void setupEvents() {
         // on search event, update terms in list
         publisher.subscribe(Event.TOUR_LIST_SELECTED_TOUR, this::showTour);
+        publisher.subscribe(Event.TOUR_LOGS_CHANGED, this::showTour);
         publisher.subscribe(Event.TOUR_LIST_CREATE_TOUR, (empty) -> resetData());
         publisher.subscribe(Event.TOUR_LIST_DELETED_TOUR, (delId) -> {
             if (isCurrentTour(delId)) {

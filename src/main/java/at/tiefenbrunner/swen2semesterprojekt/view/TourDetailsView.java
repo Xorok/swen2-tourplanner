@@ -31,6 +31,10 @@ public class TourDetailsView implements Initializable {
     @FXML
     private Label time;
     @FXML
+    private Label popularity;
+    @FXML
+    private Label childFriendliness;
+    @FXML
     private Button saveBtn;
     @FXML
     private Label errorMsg;
@@ -65,6 +69,8 @@ public class TourDetailsView implements Initializable {
         type.valueProperty().bindBidirectional(viewModel.getTourModel().tourTypeProperty());
         distance.textProperty().bind(viewModel.getTourModel().distanceMProperty().asString());
         time.textProperty().bind(viewModel.getTourModel().estimatedTimeMinProperty().asString());
+        popularity.textProperty().bind(viewModel.getTourModel().popularityProperty().asString());
+        childFriendliness.textProperty().bind(viewModel.getTourModel().childFriendlinessProperty().asString());
         this.saveBtn.disableProperty().bind(viewModel.saveDisabledProperty());
         this.exportBtn.disableProperty().bind(viewModel.exportDisabledProperty());
         errorMsg.textProperty().bind(viewModel.getTourModel().errorMessageProperty());

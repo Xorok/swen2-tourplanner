@@ -2,6 +2,8 @@ package at.tiefenbrunner.swen2semesterprojekt.viewmodel.presentation;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourPoint;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.computed.TourChildFriendliness;
+import at.tiefenbrunner.swen2semesterprojekt.repository.entities.computed.TourPopularity;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
 import jakarta.annotation.Nullable;
@@ -18,6 +20,8 @@ public class TourModel {
     private final ObjectProperty<TourType> tourType = new SimpleObjectProperty<>(TourType.BIKE);
     private final IntegerProperty distanceM = new SimpleIntegerProperty();
     private final LongProperty estimatedTimeMin = new SimpleLongProperty();
+    private final ObjectProperty<TourPopularity> popularity = new SimpleObjectProperty<>(TourPopularity.LOW);
+    private final ObjectProperty<TourChildFriendliness> childFriendliness = new SimpleObjectProperty<>(TourChildFriendliness.MEDIUM);
     private final StringProperty errMsg = new SimpleStringProperty();
 
     public TourModel() {
@@ -34,6 +38,8 @@ public class TourModel {
             this.tourType.set(TourType.BIKE);
             this.distanceM.set(0);
             this.estimatedTimeMin.set(0);
+            this.popularity.set(TourPopularity.LOW);
+            this.childFriendliness.set(TourChildFriendliness.MEDIUM);
         } else {
             List<TourPoint> points = model.getTourPoints();
             this.name.set(model.getName());
@@ -45,6 +51,8 @@ public class TourModel {
             this.tourType.set(model.getTourType());
             this.distanceM.set(model.getDistanceM());
             this.estimatedTimeMin.set(model.getEstimatedTime().toMinutes());
+            this.popularity.set(model.getPopularity());
+            this.childFriendliness.set(model.getChildFriendliness());
         }
     }
 
@@ -82,6 +90,14 @@ public class TourModel {
 
     public final LongProperty estimatedTimeMinProperty() {
         return estimatedTimeMin;
+    }
+
+    public final ObjectProperty<TourPopularity> popularityProperty() {
+        return popularity;
+    }
+
+    public final ObjectProperty<TourChildFriendliness> childFriendlinessProperty() {
+        return childFriendliness;
     }
 
     public final StringProperty errorMessageProperty() {
