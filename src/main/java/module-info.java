@@ -3,7 +3,6 @@ module at.tiefenbrunner.swen2semesterprojekt {
     requires javafx.fxml;
     requires jdk.compiler;
     requires jakarta.annotation;
-    requires java.desktop;
     requires static lombok;
     requires org.hibernate.orm.core;
     requires org.apache.logging.log4j;
@@ -15,6 +14,9 @@ module at.tiefenbrunner.swen2semesterprojekt {
     requires kernel;
     requires org.slf4j;
     requires io;
+    requires com.fasterxml.jackson.datatype.jsr310;
+    requires com.fasterxml.jackson.databind;
+    requires java.desktop;
 
     opens at.tiefenbrunner.swen2semesterprojekt to javafx.fxml;
     opens at.tiefenbrunner.swen2semesterprojekt.view to javafx.fxml;

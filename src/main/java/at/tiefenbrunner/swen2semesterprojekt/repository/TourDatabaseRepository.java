@@ -39,6 +39,33 @@ public class TourDatabaseRepository implements TourRepository {
                 updateTour(tour);
     }
 
+    @Override
+    public int deleteAllTours() {
+        // TODO: Fix Foreign Key constraint error
+        int deleteCount = 0;
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaDelete<Tour> delete = builder.createCriteriaDelete(Tour.class);
+            delete.from(Tour.class);
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            deleteCount = entityManager.createQuery(delete).executeUpdate();
+            transaction.commit();
+        }
+        return deleteCount;
+    }
+
+    @Override
+    public void insertAllTours(List<Tour> entities) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            entityManager.getTransaction().begin();
+            for (Tour tour : entities) {
+                entityManager.merge(tour);
+            }
+            entityManager.getTransaction().commit();
+        }
+    }
+
     private Tour insertTour(Tour newTour) {
         try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             entityManager.getTransaction().begin();

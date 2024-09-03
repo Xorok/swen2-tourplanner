@@ -1,12 +1,8 @@
 package at.tiefenbrunner.swen2semesterprojekt.factories;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.TourDatabaseRepository;
-import at.tiefenbrunner.swen2semesterprojekt.service.ConfigService;
-import at.tiefenbrunner.swen2semesterprojekt.service.TourReportService;
-import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
-import at.tiefenbrunner.swen2semesterprojekt.service.osm.MapImageService;
+import at.tiefenbrunner.swen2semesterprojekt.service.*;
 import at.tiefenbrunner.swen2semesterprojekt.service.route.OrsRouteService;
-import at.tiefenbrunner.swen2semesterprojekt.util.TestDataGenerator;
 
 public class ServiceFactory {
 
@@ -15,6 +11,7 @@ public class ServiceFactory {
     private TourDatabaseRepository tourDatabaseRepository;
     private TourService tourService;
     private TourReportService tourReportService;
+    private JsonExportImportService jsonExportImportService;
     private OrsRouteService orsRouteService;
     private MapImageService mapImageService;
     private final ConfigService configService;
@@ -36,9 +33,7 @@ public class ServiceFactory {
 
     public TourService getTourService() {
         if (tourService == null) {
-            tourService = new TourService(getTourDatabaseRepository(), getMapImageService(), getTourReportService());
-
-            TestDataGenerator.setupTestData(tourService); // TODO: Only for DEBUG builds
+            tourService = new TourService(getTourDatabaseRepository(), getMapImageService(), getTourReportService(), getJsonExportImportService());
         }
         return tourService;
     }
@@ -48,6 +43,13 @@ public class ServiceFactory {
             tourReportService = new TourReportService();
         }
         return tourReportService;
+    }
+
+    public JsonExportImportService getJsonExportImportService() {
+        if (jsonExportImportService == null) {
+            jsonExportImportService = new JsonExportImportService();
+        }
+        return jsonExportImportService;
     }
 
     public TourDatabaseRepository getTourDatabaseRepository() {

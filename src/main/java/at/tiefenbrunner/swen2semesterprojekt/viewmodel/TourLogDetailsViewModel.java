@@ -65,7 +65,7 @@ public class TourLogDetailsViewModel {
     private void setupEvents() {
         publisher.subscribe(Event.TOUR_LOGS_CREATE_LOG, this::createNewTourLog);
         publisher.subscribe(Event.TOUR_LOGS_EDIT_LOG, this::showTourLog);
-        publisher.subscribe(Event.SWITCH_THEME, (empty) -> switchTheme());
+        publisher.subscribe(Event.DARK_THEME, (darkTheme) -> setDarkTheme(Boolean.parseBoolean(darkTheme)));
     }
 
     private void createNewTourLog(String tourId) {
@@ -100,8 +100,8 @@ public class TourLogDetailsViewModel {
         }
     }
 
-    private void switchTheme() {
-        darkTheme.set(!darkTheme.getValue());
+    private void setDarkTheme(boolean darkThemeEnabled) {
+        darkTheme.set(darkThemeEnabled);
     }
 
     private void resetData() {
@@ -137,5 +137,9 @@ public class TourLogDetailsViewModel {
 
     public boolean isSaveDisabled() {
         return saveDisabled.get();
+    }
+
+    public TourLog getTourLog() {
+        return tourLog;
     }
 }

@@ -47,9 +47,20 @@ public class TourMemoryRepository implements TourRepository {
     }
 
     @Override
+    public void insertAllTours(List<Tour> entity) {
+        // TODO
+    }
+
+    @Override
     public void deleteTour(UUID id) {
         tours.removeIf(tour -> tour.getId().equals(id));
         tourLogs.removeIf(tourLog -> tourLog.getTour().getId().equals(id));
+    }
+
+    @Override
+    public int deleteAllTours() {
+        // TODO
+        return 0;
     }
 
     @Override

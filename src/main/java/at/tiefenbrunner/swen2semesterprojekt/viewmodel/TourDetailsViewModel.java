@@ -172,7 +172,15 @@ public class TourDetailsViewModel {
         return saveDisabled.get();
     }
 
+    public boolean getExportDisabled() {
+        return exportDisabled.get();
+    }
+
     public boolean isSaveDisabled() {
         return saveDisabled.get();
+    }
+
+    public Tour getTour() {
+        return tour;
     }
 }

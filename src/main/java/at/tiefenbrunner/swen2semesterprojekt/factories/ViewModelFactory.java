@@ -41,7 +41,7 @@ public class ViewModelFactory {
 
     public SearchBarViewModel getSearchBarViewModel() {
         if (searchBarViewModel == null)
-            searchBarViewModel = new SearchBarViewModel(publisher, serviceFactory.getTourService());
+            searchBarViewModel = new SearchBarViewModel(publisher);
         return searchBarViewModel;
     }
 

@@ -1,16 +1,22 @@
 package at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.math.BigInteger;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tp_tour_point")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,7 +27,8 @@ public class TourPoint {
     @Column(name = "tp_id", insertable = false, updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tp_t_id", nullable = false)
     private Tour tour;
 

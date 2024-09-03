@@ -1,6 +1,8 @@
 package at.tiefenbrunner.swen2semesterprojekt.repository.entities;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.TourType;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +14,9 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "t_tour")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,9 +44,10 @@ public class Tour {
     private Duration estimatedTime;
 
     // TODO: Implement lazy fetching, get rid of FetchType.EAGER
-    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<TourLog> tourLogs; // TODO: Not fully implemented in TourMemoryRepository
 
-    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    // TODO: Implement lazy fetching, get rid of FetchType.EAGER
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<TourPoint> tourPoints; // TODO: Not fully implemented in TourMemoryRepository
 }

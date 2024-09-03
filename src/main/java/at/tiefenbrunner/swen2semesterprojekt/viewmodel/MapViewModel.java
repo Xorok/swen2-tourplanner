@@ -2,7 +2,6 @@ package at.tiefenbrunner.swen2semesterprojekt.viewmodel;
 
 import at.tiefenbrunner.swen2semesterprojekt.event.Event;
 import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
-import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
 import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 import jakarta.annotation.Nullable;
@@ -11,7 +10,6 @@ import javafx.beans.property.StringProperty;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Log4j2
@@ -43,20 +41,9 @@ public class MapViewModel {
     }
 
     private void getRoute(String uuidStr) {
-        try {
-            UUID uuid = UUID.fromString(uuidStr);
-            Optional<Tour> tourOpt = model.findTourById(uuid);
-            if (tourOpt.isEmpty()) {
-                log.error("Couldn't find selected Tour with ID {}", uuidStr);
-                // TODO: Handle invalid state
-            } else {
-                List<Point> route = model.findRouteByTourId(tourOpt.get().getId());
-                displayRoute(route);
-                this.tourId = tourOpt.get().getId().toString();
-            }
-        } catch (IllegalArgumentException e) {
-            log.error(e.getStackTrace());
-        }
+        List<Point> route = model.findRouteByTourId(UUID.fromString(uuidStr));
+        displayRoute(route);
+        this.tourId = uuidStr;
     }
 
     private void displayRoute(List<Point> route) {
@@ -91,5 +78,13 @@ public class MapViewModel {
 
     public void executeScript(String script) {
         scriptToExecute.set(script);
+    }
+
+    public String getTourId() {
+        return tourId;
+    }
+
+    public String getScriptToExecute() {
+        return scriptToExecute.get();
     }
 }

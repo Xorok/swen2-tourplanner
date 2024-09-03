@@ -2,7 +2,6 @@ package at.tiefenbrunner.swen2semesterprojekt.viewmodel;
 
 import at.tiefenbrunner.swen2semesterprojekt.event.Event;
 import at.tiefenbrunner.swen2semesterprojekt.event.Publisher;
-import at.tiefenbrunner.swen2semesterprojekt.service.TourService;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,16 +9,14 @@ import javafx.beans.property.StringProperty;
 
 public class SearchBarViewModel {
     private final Publisher publisher;
-    private final TourService model;
 
     private final StringProperty searchText = new SimpleStringProperty("");
     private final BooleanProperty searchDisabled = new SimpleBooleanProperty(true);
 
     // TODO: Implement (x) clear button for text
 
-    public SearchBarViewModel(Publisher publisher, TourService model) {
+    public SearchBarViewModel(Publisher publisher) {
         this.publisher = publisher;
-        this.model = model;
 
         setupBindings();
         setupEvents();

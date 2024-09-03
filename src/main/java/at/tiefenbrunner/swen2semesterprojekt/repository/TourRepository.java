@@ -12,7 +12,11 @@ public interface TourRepository {
 
     Tour saveTour(Tour entity);
 
+    void insertAllTours(List<Tour> entity);
+
     void deleteTour(UUID id);
+
+    int deleteAllTours();
 
     List<Tour> findAllTours();
 

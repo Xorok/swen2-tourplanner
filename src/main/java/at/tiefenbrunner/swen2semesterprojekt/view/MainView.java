@@ -44,4 +44,14 @@ public class MainView extends ThemedView implements Initializable {
     public void onExportPdf() {
         viewModel.exportPdf();
     }
+
+    @FXML
+    public void onExportJson() {
+        viewModel.exportJson();
+    }
+
+    @FXML
+    public void onImportJson() {
+        viewModel.importJson();
+    }
 }

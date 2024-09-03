@@ -3,7 +3,10 @@ package at.tiefenbrunner.swen2semesterprojekt.service;
 import jakarta.annotation.Nullable;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 @Log4j2
@@ -20,7 +23,7 @@ public class ConfigService {
     }
 
     // Constructor with direct InputStream for tests
-    public ConfigService(InputStream inputStream, OutputStream outputStream) throws IOException {
+    public ConfigService(InputStream inputStream) throws IOException {
         properties = new Properties();
         properties.load(inputStream);
     }

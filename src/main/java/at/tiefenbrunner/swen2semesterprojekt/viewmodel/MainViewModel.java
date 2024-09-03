@@ -37,12 +37,21 @@ public class MainViewModel {
     }
 
     private void propagateAndSaveThemeChange() {
-        publisher.publish(Event.SWITCH_THEME, "");
+        publisher.publish(Event.DARK_THEME, this.darkTheme.get() ? "true" : "false");
         configService.setConfigValue("app.dark-theme", this.darkTheme.get() ? "true" : "false");
     }
 
     public void exportPdf() {
         tourService.generateSummaryReport();
+    }
+
+    public void exportJson() {
+        tourService.generateJsonBackup();
+    }
+
+    public void importJson() {
+        tourService.importJsonBackup();
+        publisher.publish(Event.SEARCH_TERM_SEARCHED, "");
     }
 
     public BooleanProperty darkThemeProperty() {

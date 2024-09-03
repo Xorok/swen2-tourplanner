@@ -1,4 +1,4 @@
-package at.tiefenbrunner.swen2semesterprojekt.service.osm;
+package at.tiefenbrunner.swen2semesterprojekt.service;
 
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
 import at.tiefenbrunner.swen2semesterprojekt.util.Constants;

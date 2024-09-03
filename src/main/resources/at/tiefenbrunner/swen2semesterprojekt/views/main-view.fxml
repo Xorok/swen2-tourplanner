@@ -15,7 +15,11 @@
                     <MenuItem text="Switch theme &#127767;" onAction="#onSwitchTheme"/>
                 </Menu>
                 <Menu text="Export">
-                    <MenuItem text="Export Tours Summary &#128229;" onAction="#onExportPdf"/>
+                    <MenuItem text="Export Tours Summary PDF &#128229;" onAction="#onExportPdf"/>
+                    <MenuItem text="Export Tours As JSON { }" onAction="#onExportJson"/>
+                </Menu>
+                <Menu text="Import">
+                    <MenuItem text="Import Tours from JSON Backup { }" onAction="#onImportJson"/>
                 </Menu>
             </MenuBar>
             <fx:include source="search-bar-view.fxml"/>

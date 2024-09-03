@@ -5,7 +5,7 @@ import at.tiefenbrunner.swen2semesterprojekt.repository.entities.Tour;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourLog;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.TourPoint;
 import at.tiefenbrunner.swen2semesterprojekt.repository.entities.parts.Point;
-import at.tiefenbrunner.swen2semesterprojekt.service.osm.MapImageService;
+import at.tiefenbrunner.swen2semesterprojekt.util.Constants;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
@@ -21,20 +21,30 @@ public class TourService {
     private final TourRepository tourRepository;
     private final MapImageService mapImageService;
     private final TourReportService tourReportService;
+    private final JsonExportImportService jsonExportImportService;
 
-    public TourService(TourRepository tourRepository, MapImageService mapImageService, TourReportService tourReportService) {
+    public TourService(TourRepository tourRepository, MapImageService mapImageService, TourReportService tourReportService, JsonExportImportService jsonExportImportService) {
         this.tourRepository = tourRepository;
         this.mapImageService = mapImageService;
         this.tourReportService = tourReportService;
+        this.jsonExportImportService = jsonExportImportService;
     }
 
     public Tour saveTour(Tour tour) {
         return tourRepository.saveTour(tour);
     }
 
+    public void saveAllTours(List<Tour> tour) {
+        tourRepository.insertAllTours(tour);
+    }
+
     public void deleteTour(UUID id) {
         tourRepository.deleteTour(id);
         mapImageService.deleteRouteMap(id.toString());
+    }
+
+    public void deleteAllTours() {
+        tourRepository.deleteAllTours();
     }
 
     public List<Tour> findAllTours() {
@@ -105,7 +115,7 @@ public class TourService {
             tourReportService.generateReport(List.of(tour), "tour_report_" + tour.getId(), true);
         } catch (Exception e) {
             log.error("Couldn't generate report for tour {}!", tour.getId(), e);
-            // TODO: Show error in UI - couldn't generate report
+            // TODO: Show error in UI
         }
     }
 
@@ -113,8 +123,28 @@ public class TourService {
         try {
             tourReportService.generateReport(findAllTours(), "tours_summary_report", false);
         } catch (Exception e) {
-            log.error("Couldn't generate report for tours!", e);
-            // TODO: Show error in UI - couldn't generate report
+            log.error("Couldn't generate summary report for tours!", e);
+            // TODO: Show error in UI
+        }
+    }
+
+    public void generateJsonBackup() {
+        try {
+            jsonExportImportService.exportToursToJson(findAllTours(), "all_tours_export");
+        } catch (IOException e) {
+            log.error("Couldn't generate JSON export for tours!", e);
+            // TODO: Show error in UI
+        }
+    }
+
+    public void importJsonBackup() {
+        try {
+            List<Tour> tours = jsonExportImportService.importToursFromJson(Constants.EXPORTS_PATH + "all_tours_export.json");
+            deleteAllTours();
+            saveAllTours(tours);
+        } catch (IOException e) {
+            log.error("Couldn't import JSON Backup of tours!", e);
+            // TODO: Show error in UI
         }
     }
 }
